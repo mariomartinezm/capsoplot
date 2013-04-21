@@ -222,7 +222,7 @@ def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
     # Calculate densities
     for t in index_set[1:]:
         psi[t] = psi[t - 1] - phi[t - 1] * psi[t - 1]
-        phi[t] = phi[t - 1] + (1 - phi[t - 1]) * phi[t - 1] - (1 - psi[t - 1]) * phi[t - 1]
+        phi[t] = phi[t - 1] + (1 - phi[t - 1]) * phi[t - 1] - (1 - psi[t - 1]) * phi[t - 1] - phi[t - 1]
 
     # Setup the plot
     figure(1)
