@@ -200,7 +200,7 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, data_file=''):
     show()
 
 
-def plot_mf_predator_death_and_reproduction(N=100, psi0=1, phi0=0.01, data_file=''):
+def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
