@@ -200,6 +200,47 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, data_file=''):
     show()
 
 
+def plot_mf_prey_reproduction_2(N=100, psi0=0.001, ey=1, data_file=''):
+    # Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+
+    preys = []
+    predators = []
+
+    if data_file != '':
+        # Obtain data from file
+        index, preys, predators = loadtxt(data_file, unpack=True)
+        preys = preys / 131072
+        predators = predators / 131072
+
+    # Initialize densities
+    psi[0] = psi0
+
+    # Calculate densities
+    for t in index_set[1:]:
+        psi[t] = psi[t - 1] + (1 - psi[t - 1]) * ey * psi[t - 1]
+
+    print preys
+    print psi
+
+    # Setup the plot
+    figure(1, (9.0, 7.0))
+
+    _setup_grid_and_axes('t (seasons)', 'Population density')
+
+    # Plot the data
+    if data_file != '':
+        plot(index_set, preys[0:N + 1], 'ro-', antialiased=True, label='Simulation')
+
+    plot(index_set, psi, 'bo-', antialiased=True, label='Mean field')
+
+    legend()
+
+    # Show the plot
+    show()
+
+
 def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
     # Initialize data arrays
     index_set = arange(0, N + 1)
