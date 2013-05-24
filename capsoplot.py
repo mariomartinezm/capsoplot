@@ -69,6 +69,32 @@ def plot_time_series(file_name, tmin=-1, tmax=-1):
     show()
 
 
+def plot_time_series_normalized(file_name, tmin=-1, tmax=-1):
+    size = 131072
+
+    figure(1)
+
+    _set_font()
+
+    _setup_grid_and_axes('Time (Sesons)', 'Density')
+
+    # load the results file
+    index, preys, predators = loadtxt(file_name, unpack=True)
+
+    # plot the prey's data
+    if tmin != -1 and tmax != -1:
+        plot(index[tmin:tmax], preys[tmin:tmax], linewidth=1.5, label='Preys')
+        plot(index[tmin:tmax], predators[tmin:tmax], linewidth=1.5, label='Predators')
+    else:
+        plot(index, preys / size, linewidth=1.5, label='Preys')
+        plot(index, predators / size, linewidth=1.5, label='Preys')
+
+    legend()
+
+    # Show the plot
+    show()
+
+
 def plot_fourier_spectra(file_name):
     # load data file
     index, preys, predators = loadtxt(file_name, unpack=True)
