@@ -126,7 +126,7 @@ def plot_fourier_spectra(file_name):
     show()
 
 
-def plot_phase_plot(file_name):
+def plot_phase_plot(file_name, tmin=-1, tmax=-1):
     # Load data file
     index, preys, predators = loadtxt(file_name, unpack=True)
 
@@ -139,7 +139,10 @@ def plot_phase_plot(file_name):
     _setup_grid_and_axes('Preys', 'Predators')
 
     # Plot the data
-    plot(preys[900:1000], predators[900:1000], 'k-', antialiased=True)
+    if tmin != -1 and tmax != -1:
+        plot(preys[tmin:tmax], predators[tmin:tmax], 'k-', antialiased=True)
+    else:
+        plot(preys, predators, 'k-', antialiased=True)
 
     # Show the plot
     show()
