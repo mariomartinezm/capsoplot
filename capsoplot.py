@@ -344,8 +344,8 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1, data_file=''):
 
     # Plot the data
     if(data_file != ''):
-        plot(index_set, preys[0:N + 1], 'co-', antialiased=True, label='Sim preys')
-        plot(index_set, predators[0:N + 1], 'mo-', antialiased=True, label='Sim predators')
+        plot(index_set, preys[0:N + 1], 'c-', antialiased=True, label='Sim preys')
+        plot(index_set, predators[0:N + 1], 'm-', antialiased=True, label='Sim predators')
 
     plot(index_set, psi, 'go-', antialiased=True, label='Mf preys')
     plot(index_set, phi, 'ro-', antialiased=True, label='Mf predators')
