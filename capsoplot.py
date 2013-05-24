@@ -13,7 +13,7 @@ TICKS_LABEL_SIZE = 20
 
 
 def _set_font():
-    rc('font', family='serif', serif='times')
+    rc('font', family='serif', serif='Helvetica')
     rc('text', usetex=True)
 
 
