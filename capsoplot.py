@@ -87,7 +87,7 @@ def plot_time_series_normalized(file_name, tmin=-1, tmax=-1):
         plot(index[tmin:tmax], predators[tmin:tmax], linewidth=1.5, label='Predators')
     else:
         plot(index, preys / size, linewidth=1.5, label='Preys')
-        plot(index, predators / size, linewidth=1.5, label='Preys')
+        plot(index, predators / size, linewidth=1.5, label='Predators')
 
     legend()
 
