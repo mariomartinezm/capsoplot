@@ -313,7 +313,7 @@ def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
     show()
 
 
-def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, data_file=''):
+def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1, data_file=''):
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
@@ -334,8 +334,8 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, data_file=''):
 
     # Calculate densities
     for t in index_set[1:]:
-        psi[t] = psi[t - 1] + (1 - psi[t - 1]) * psi[t - 1] - phi[t - 1] * psi[t - 1] - alpha * psi[t - 1] ** 2
-        phi[t] = phi[t - 1] + (1 - phi[t - 1]) * phi[t - 1] - (1 - psi[t - 1]) * phi[t - 1] - phi[t - 1]
+        psi[t] = psi[t - 1] + (1 - psi[t - 1]) * ey * psi[t - 1] - phi[t - 1] * psi[t - 1] - alpha * psi[t - 1] ** 2
+        phi[t] = phi[t - 1] + (1 - phi[t - 1]) * ez * phi[t - 1] - (1 - psi[t - 1]) * phi[t - 1] - phi[t - 1]
 
     # Setup the plot
     figure(1)
