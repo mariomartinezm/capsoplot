@@ -5,7 +5,7 @@
 
 from __future__ import division
 from pylab import figure, grid, rc, xlabel, ylabel, plot, gca, tick_params, legend, show
-from scipy import loadtxt, arange, mean, fft, zeros
+from scipy import loadtxt, arange, mean, fft, zeros, log
 from scipy.fftpack import fftshift
 
 AXIS_LABEL_SIZE = 25
@@ -83,8 +83,8 @@ def plot_time_series_normalized(file_name, tmin=-1, tmax=-1):
 
     # plot the prey's data
     if tmin != -1 and tmax != -1:
-        plot(index[tmin:tmax], preys[tmin:tmax], linewidth=1.5, label='Preys')
-        plot(index[tmin:tmax], predators[tmin:tmax], linewidth=1.5, label='Predators')
+        plot(index[tmin:tmax], preys[tmin:tmax] / size, linewidth=1.5, label='Preys')
+        plot(index[tmin:tmax], predators[tmin:tmax] / size, linewidth=1.5, label='Predators')
     else:
         plot(index, preys / size, linewidth=1.5, label='Preys')
         plot(index, predators / size, linewidth=1.5, label='Predators')
@@ -224,6 +224,33 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, data_file=''):
     plot(index_set, psi, 'bo-', antialiased=True, label='Mean field')
 
     legend()
+
+    # Show the plot
+    show()
+
+
+def plot_mf_only_preys(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5):
+    # Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+
+    # Initialize densities
+    psi[0] = psi0
+
+    # Calculate densities
+    for t in index_set[1:]:
+        psi[t] = psi[t - 1] - alpha * psi[t - 1] ** 2 + (1 - psi[t - 1]) * psi[t - 1]
+
+    # Set up the plot
+    figure(1)
+
+    _setup_grid_and_axes('t (Seasons)', 'Population density')
+
+    # Plot the data
+    if tmin != -1 and tmax != -1:
+        plot(index_set[tmin:tmax], psi[tmin:tmax], 'k.-', antialiased=True)
+    else:
+        plot(index_set, psi, 'k.-', antialiased=True)
 
     # Show the plot
     show()
@@ -381,6 +408,41 @@ def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1, ey=1, e
         plot(psi[tmin:tmax], phi[tmin:tmax], 'k-', antialiased=True)
     else:
         plot(psi, phi, 'k-', antialiased=True)
+
+    # Show the plot
+    show()
+
+
+def plot_mf_seck(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5, rc=1, rrp=1):
+    # Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+
+    # Initialize densities
+    psi[0] = psi0
+
+    # Initialize extra parameters
+    cmc = 1 / ((2 * rc + 1) ** 2)
+    aux = 0.6
+    w = 1 - (aux ** rrp)
+
+    # Calculate densities
+    for t in index_set[1:]:
+        dv = (1 / (1 - cmc)) * psi[t - 1] + 1 - (1 / (1 - cmc))
+        #psi[t] = psi[t - 1] - alpha * psi[t - 1] * dv
+        #psi[t] = psi[t - 1] + (w / log(t + 1)) * (1 - psi[t - 1]) * psi[t - 1]
+        psi[t] = psi[t - 1] - alpha * psi[t - 1] * dv + (w / log(t + 1)) * (1 - psi[t - 1]) * psi[t - 1]
+
+    # Set up the plot
+    figure(1)
+
+    _setup_grid_and_axes('t (Seasons)', 'Population density')
+
+    # Plot the data
+    if tmin != -1 and tmax != -1:
+        plot(index_set[tmin:tmax], psi[tmin:tmax], 'k.-', antialiased=True)
+    else:
+        plot(index_set, psi, 'k.-', antialiased=True)
 
     # Show the plot
     show()
