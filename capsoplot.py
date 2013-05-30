@@ -356,20 +356,11 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1, data_file=''):
     show()
 
 
-def plot_mf_phase_plot(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1, data_file=''):
+def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1):
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
     phi = zeros(len(index_set))
-
-    preys = []
-    predators = []
-
-    if data_file != '':
-        # Obtain data from file
-        index, preys, predators = loadtxt(data_file, unpack=True)
-        preys = preys / 131072
-        predators = predators / 131072
 
     # Initialize densities
     psi[0] = psi0
@@ -386,10 +377,6 @@ def plot_mf_phase_plot(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1, ey
     _setup_grid_and_axes('t (seasons)', 'Population density')
 
     # Plot the data
-    if(data_file != ''):
-        plot(index_set, preys[0:N + 1], 'c-', antialiased=True, label='Sim preys')
-        plot(index_set, predators[0:N + 1], 'm-', antialiased=True, label='Sim predators')
-
     if tmin != -1 and tmax != -1:
         plot(psi[tmin:tmax], phi[tmin:tmax], 'k-', antialiased=True)
     else:
