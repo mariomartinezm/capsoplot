@@ -374,7 +374,7 @@ def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1, ey=1, e
     # Setup the plot
     figure(1)
 
-    _setup_grid_and_axes('t (seasons)', 'Population density')
+    _setup_grid_and_axes('Preys', 'Predators')
 
     # Plot the data
     if tmin != -1 and tmax != -1:
