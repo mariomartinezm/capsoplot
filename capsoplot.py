@@ -256,6 +256,29 @@ def plot_mf_only_preys(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5):
     show()
 
 
+def plot_mf_only_preys_coupled(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5):
+    # Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+
+    # Initialize densities
+    psi[0] = psi0
+
+    # Calculate densities
+    for t in index_set[1:]:
+        aux = psi[t - 1] - alpha * psi[t - 1] ** 2
+        psi[t] = aux + (1 - aux) * aux
+
+    # Set up the plot
+    if tmin != -1 and tmax != -1:
+        plot(index_set[tmin:tmax], psi[tmin:tmax], 'k.-', antialiased=True)
+    else:
+        plot(index_set, psi, 'k.-', antialiased=True)
+
+    # Show the plot
+    show()
+
+
 def plot_mf_prey_reproduction_2(N=100, psi0=0.001, ey=1, data_file=''):
     # Initialize data arrays
     index_set = arange(0, N + 1)
