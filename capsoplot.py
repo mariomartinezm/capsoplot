@@ -469,3 +469,37 @@ def plot_mf_seck(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5, rc=1, rrp=1):
 
     # Show the plot
     show()
+
+
+def plot_mf_seck_coupled(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5, rc=1, rrp=1):
+    # Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+
+    # Initialize densities
+    psi[0] = psi0
+
+    # Initialize extra parameters
+    cmc = 1 / ((2 * rc + 1) ** 2)
+    aux = 0.6
+    w = 1 - (aux ** rrp)
+
+    # Calculate densities
+    for t in index_set[1:]:
+        dv = (1 / (1 - cmc)) * psi[t - 1] + 1 - (1 / (1 - cmc))
+        temp = psi[t - 1] - alpha * psi[t - 1] * dv
+        psi[t] = temp + (w / log(t + 1)) * (1 - temp) * temp
+
+    # Set up the plot
+    figure(1)
+
+    _setup_grid_and_axes('t (Seasons)', 'Population density')
+
+    # Plot the data
+    if tmin != -1 and tmax != -1:
+        plot(index_set[tmin:tmax], psi[tmin:tmax], 'k.-', antialiased=True)
+    else:
+        plot(index_set, psi, 'k.-', antialiased=True)
+
+    # Show the plot
+    show()
