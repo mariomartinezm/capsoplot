@@ -406,6 +406,52 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1, data_file=''):
     show()
 
 
+def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1, data_file=''):
+# Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+    phi = zeros(len(index_set))
+
+    preys = []
+    predators = []
+
+    if data_file != '':
+        # Obtain data from file
+        index, preys, predators = loadtxt(data_file, unpack=True)
+        preys = preys / 131072
+        predators = predators / 131072
+
+    # Initialize densities
+    psi[0] = psi0
+    phi[0] = phi0
+
+    # Calculate densities
+    for t in index_set[1:]:
+        psi_ic = psi[t - 1] - alpha * psi[t - 1] ** 2
+        phi_rz = phi[t - 1] + (1 - phi[t - 1]) * ez * phi[t - 1]
+        phi[t] = phi_rz - (1 - psi_ic) * phi_rz
+        psi_dy = psi_ic - phi[t] * psi_ic
+        psi[t] = psi_dy + (1 - psi_dy) * ey * psi_dy
+
+    # Setup the plot
+    figure(1)
+
+    _setup_grid_and_axes('t (seasons)', 'Population density')
+
+    # Plot the data
+    if(data_file != ''):
+        plot(index_set, preys[0:N + 1], 'c-', antialiased=True, label='Sim preys')
+        plot(index_set, predators[0:N + 1], 'm-', antialiased=True, label='Sim predators')
+
+    plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
+    plot(index_set, phi, 'r-', antialiased=True, label='Mf predators')
+
+    legend()
+
+    # Show the plot
+    show()
+
+
 def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1):
     # Initialize data arrays
     index_set = arange(0, N + 1)
