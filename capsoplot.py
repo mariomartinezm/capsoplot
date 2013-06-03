@@ -270,6 +270,11 @@ def plot_mf_only_preys_coupled(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5)
         psi[t] = aux + (1 - aux) * aux
 
     # Set up the plot
+    figure(1)
+
+    _setup_grid_and_axes('t (Seasons)', 'Population density')
+
+    # Plot the data
     if tmin != -1 and tmax != -1:
         plot(index_set[tmin:tmax], psi[tmin:tmax], 'k.-', antialiased=True)
     else:
