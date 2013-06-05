@@ -140,9 +140,9 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1):
 
     # Plot the data
     if tmin != -1 and tmax != -1:
-        plot(preys[tmin:tmax], predators[tmin:tmax], 'k-', antialiased=True)
+        plot(preys[tmin:tmax] / 131072, predators[tmin:tmax] / 131072, 'k-', antialiased=True)
     else:
-        plot(preys, predators, 'k-', antialiased=True)
+        plot(preys / 131072, predators / 131072, 'k-', antialiased=True)
 
     # Show the plot
     show()
