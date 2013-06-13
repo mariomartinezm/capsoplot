@@ -720,6 +720,20 @@ def plot_mf_seck(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5, rc=1, rrp=1):
 
 
 def plot_mf_seck_coupled(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5, rc=1, rrp=1):
+    """
+    Plot the mean field model derived by Dr. Seck for the intraspecific
+    competition and the reproduction of preys, coupled version.
+
+    Keyword arguments:
+        N=1000 (int)        -- The number of iterations to calculate.
+        tmin=-1 (int)       -- the minimal endpoint of the time interval to plot.
+        tmax=-1 (int)       -- the maximum endpoint of the time interval to plot.
+        psi0=0.0001 (float) -- The initial density of preys.
+        alpha=0.5 (float)   -- The intraspecific competition coefficient.
+        rc=1 (int)          -- Radius of the compeition neighborhood.
+        rrp=1 (int)         -- Radius of the prey's reproduction neighborhood.
+
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
