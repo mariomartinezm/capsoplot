@@ -326,6 +326,18 @@ def plot_mf_only_preys(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5):
 
 
 def plot_mf_only_preys_coupled(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5):
+    """
+    Plot a simple mean field model that infludes the intraspecific competition
+    and prey reproduction rules, the rules are coupled.
+
+    Keyword arguments:
+        N=100 (int)         -- The number of iterations to calculate.
+        tmin=-1 (int)       -- the minimal endpoint of the time interval to plot.
+        tmax=-1 (int)       -- the maximum endpoint of the time interval to plot.
+        psi0=0.001  (float) -- The initial density of preys.
+        alpha=0.5 (float)   -- The intraspecific competition coefficient.
+
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
