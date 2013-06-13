@@ -118,6 +118,13 @@ def plot_time_series_normalized(file_name, tmin=-1, tmax=-1):
 
 
 def plot_fourier_spectra(file_name):
+    """
+    Plot the the Fourier spectra of a CaPso results file.
+
+    Args:
+        file_name (str)   -- the text file containing the results.
+
+    """
     # load data file
     index, preys, predators = loadtxt(file_name, unpack=True)
 
