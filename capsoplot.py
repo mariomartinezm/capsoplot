@@ -366,6 +366,17 @@ def plot_mf_only_preys_coupled(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5)
 
 
 def plot_mf_prey_reproduction_2(N=100, psi0=0.001, ey=1, data_file=''):
+    """
+    Plot a mean field approximation for the reproduction of preys.
+
+    Keyword arguments:
+        N=100 (int)         -- The number of iterations to calculate.
+        psi0=0.001  (float) -- The initial density of preys.
+        ey = 1 (float)      -- The reproductive capacity of the preys.
+        alpha=0.5 (float)   -- The intraspecific competition coefficient.
+        data_file='' (str)  -- An optional CaPso results file for comparison.
+
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
