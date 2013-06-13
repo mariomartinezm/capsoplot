@@ -188,6 +188,15 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1):
 
 
 def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
+    """
+    Plot the mean field term for the intraspecific competition.
+
+    Keyword arguments:
+        N=100 (int)         -- The number of iterations to calculate.
+        y0=1  (int)         -- The initial density of preys.
+        alpha=0.5 (float)   -- The intraspecific competition coefficient.
+        data_file='' (str)  -- An optional CaPso results file.
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     Y = zeros(len(index_set))
