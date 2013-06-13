@@ -156,6 +156,13 @@ def plot_fourier_spectra(file_name):
 
 
 def plot_phase_plot(file_name, tmin=-1, tmax=-1):
+    """
+    Plot the the phase plot of a CaPso results file.
+
+    Args:
+        file_name (str)   -- the text file containing the results.
+
+    """
     # Load data file
     index, preys, predators = loadtxt(file_name, unpack=True)
 
