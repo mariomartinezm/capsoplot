@@ -418,6 +418,17 @@ def plot_mf_prey_reproduction_2(N=100, psi0=0.001, ey=1, data_file=''):
 
 
 def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
+    """
+    Plot a mean field model that does not include intraspecific competiton nor
+    prey reproduction.
+
+    Keyword arguments:
+        N=100 (int)         -- The number of iterations to calculate.
+        psi0=1  (float)     -- The initial density of preys.
+        phi0=0.01 (float)   -- The initial density of predators.
+        data_file='' (str)  -- An optional CaPso results file for comparison.
+
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
