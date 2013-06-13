@@ -237,6 +237,15 @@ def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
 
 
 def plot_mf_prey_reproduction(N=100, psi0=0.001, data_file=''):
+    """
+    Plot a simple mean field approximation for the reproduction of preys.
+
+    Keyword arguments:
+        N=100 (int)         -- The number of iterations to calculate.
+        psi0=0.001  (float) -- The initial density of preys.
+        alpha=0.5 (float)   -- The intraspecific competition coefficient.
+        data_file='' (str)  -- An optional CaPso results file for comparison.
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
