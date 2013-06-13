@@ -81,6 +81,17 @@ def plot_time_series(file_name, tmin=-1, tmax=-1):
 
 
 def plot_time_series_normalized(file_name, tmin=-1, tmax=-1):
+    """
+    Plot the time series (normalized) of a CaPso results file.
+
+    Args:
+        file_name (str)   -- the text file containing the results.
+
+    Keyword arguments:
+        tmin=-1 (int)     -- the minimal endpoint of the time interval to plot.
+        tmax=-1 (int)     -- the maximum endpoint of the time interval to plot.
+
+    """
     size = 131072
 
     figure(1)
