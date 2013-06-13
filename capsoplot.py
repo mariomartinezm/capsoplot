@@ -472,6 +472,19 @@ def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
 
 
 def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1, data_file=''):
+    """
+    Plot the mean field model approximation.
+
+    Keyword arguments:
+        N=100 (int)         -- The number of iterations to calculate.
+        psi0=1  (float)     -- The initial density of preys.
+        phi0=0.01 (float)   -- The initial density of predators.
+        alpha=0.1 (float)   -- The intraspecific competition coefficient.
+        ey=1 (float)        -- The reproductive capacity of preys.
+        ez=1 (float)        -- The reproductive capacity of predators.
+        data_file='' (str)  -- An optional CaPso results file for comparison.
+
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
