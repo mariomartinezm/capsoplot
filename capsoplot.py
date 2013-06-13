@@ -162,6 +162,9 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1):
     Args:
         file_name (str)   -- the text file containing the results.
 
+    Keyword arguments:
+        tmin=-1 (int)     -- the minimal endpoint of the time interval to plot.
+        tmax=-1 (int)     -- the maximum endpoint of the time interval to plot.
     """
     # Load data file
     index, preys, predators = loadtxt(file_name, unpack=True)
