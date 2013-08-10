@@ -430,6 +430,37 @@ def plot_mf_prey_reproduction_2(N=100, psi0=0.001, ey=1, data_file=''):
     show()
 
 
+def plot_mf_prey_reproduction_3(N=100, psi0=0.001, ry=1, ey=1):
+	# Initialize data arrays
+	index_set = arange(0, N + 1)
+	psi = zeros(len(index_set))
+
+    # Initialize densities
+	psi[0] = psi0
+	
+	card_mry = (2 * ry + 1) ** 2 - 1
+	py = 1 / card_mry
+
+    # Calculate densities
+	for t in index_set[1:]:
+		number_of_preys = card_mry * psi[t - 1]
+		number_of_events = ey * number_of_preys
+		
+		psi[t] = psi[t - 1] + (1 - psi[t - 1]) * (1 - (1 - py) ** number_of_events)
+
+    # Setup the plot
+	figure(1)
+	
+	_setup_grid_and_axes('t (seasons)', 'Population density')
+	
+	plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
+	
+	legend()
+
+    # Show the plot
+	show()
+
+
 def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
     """
     Plot a mean field model that does not include intraspecific competiton nor
