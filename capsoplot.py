@@ -430,10 +430,19 @@ def plot_mf_prey_reproduction_2(N=100, psi0=0.001, ey=1, data_file=''):
     show()
 
 
-def plot_mf_prey_reproduction_3(N=100, psi0=0.001, ry=1, ey=1):
+def plot_mf_prey_reproduction_3(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
 	# Initialize data arrays
 	index_set = arange(0, N + 1)
 	psi = zeros(len(index_set))
+	
+	preys = []
+	predators = []
+	
+	if data_file != '':
+		# Obtain data from file
+		index, preys, predators = loadtxt(data_file, unpack=True)
+		preys = preys / 131072
+		predators = predators / 131072
 
     # Initialize densities
 	psi[0] = psi0
@@ -452,7 +461,12 @@ def plot_mf_prey_reproduction_3(N=100, psi0=0.001, ry=1, ey=1):
 	figure(1)
 	
 	_setup_grid_and_axes('t (seasons)', 'Population density')
-	
+
+	# Plot the data
+	if data_file != '':
+		plot(index_set, preys[0:N + 1], 'b-', antialiased=True,
+			label='Simulation')
+
 	plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
 	
 	legend()
