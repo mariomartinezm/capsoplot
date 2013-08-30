@@ -431,48 +431,49 @@ def plot_mf_prey_reproduction_2(N=100, psi0=0.001, ey=1, data_file=''):
 
 
 def plot_mf_prey_reproduction_3(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
-	# Initialize data arrays
-	index_set = arange(0, N + 1)
-	psi = zeros(len(index_set))
-	
-	preys = []
-	predators = []
-	
-	if data_file != '':
-		# Obtain data from file
-		index, preys, predators = loadtxt(data_file, unpack=True)
-		preys = preys / 131072
-		predators = predators / 131072
+    # Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+
+    preys = []
+    predators = []
+
+    if data_file != '':
+        # Obtain data from file
+        index, preys, predators = loadtxt(data_file, unpack=True)
+        preys = preys / 131072
+        predators = predators / 131072
 
     # Initialize densities
-	psi[0] = psi0
-	
-	card_mry = (2 * ry + 1) ** 2 - 1
-	py = 1 / card_mry
+    psi[0] = psi0
+
+    card_mry = (2 * ry + 1) ** 2 - 1
+    py = 1 / card_mry
 
     # Calculate densities
-	for t in index_set[1:]:
-		number_of_preys = card_mry * psi[t - 1]
-		number_of_events = ey * number_of_preys
-		
-		psi[t] = psi[t - 1] + (1 - psi[t - 1]) * (1 - (1 - py) ** number_of_events)
+    for t in index_set[1:]:
+        number_of_preys = card_mry * psi[t - 1]
+        number_of_events = ey * number_of_preys
+
+        psi[t] = psi[t - 1] + (1 - psi[t - 1]) * (1 - (1 - py) **
+                                                  number_of_events)
 
     # Setup the plot
-	figure(1)
-	
-	_setup_grid_and_axes('t (seasons)', 'Population density')
+    figure(1)
 
-	# Plot the data
-	if data_file != '':
-		plot(index_set, preys[0:N + 1], 'b-', antialiased=True,
-			label='Simulation')
+    _setup_grid_and_axes('t (seasons)', 'Population density')
 
-	plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
-	
-	legend()
+    # Plot the data
+    if data_file != '':
+        plot(index_set, preys[0:N + 1], 'b-', antialiased=True,
+             label='Simulation')
+
+    plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
+
+    legend()
 
     # Show the plot
-	show()
+    show()
 
 
 def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
