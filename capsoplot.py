@@ -590,6 +590,8 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
     # Setup the plot
     figure(1)
 
+    _set_font()
+
     _setup_grid_and_axes('t (seasons)', 'Population density')
 
     # Plot the data
@@ -667,6 +669,8 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
 
     # Setup the plot
     figure(1)
+
+    _set_font()
 
     _setup_grid_and_axes('t (seasons)', 'Population density')
 
