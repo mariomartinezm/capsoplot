@@ -690,7 +690,8 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
     show()
 
 
-def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1):
+def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
+                          ez=1, rz=1, data_file=''):
     """
     Plot the phase plot of the mean field model approximation, coupled version.
 
@@ -712,16 +713,34 @@ def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ez=1):
     psi[0] = psi0
     phi[0] = phi0
 
+    card_mry = (2 * ry + 1) ** 2 - 1
+    py = 1 / card_mry
+
+    card_mrz = (2 * rz + 1) ** 2 - 1
+    pz = 1 / card_mrz
+
     # Calculate densities
     for t in index_set[1:]:
+        # Intraspecific competition
         psi_ic = psi[t - 1] - alpha * psi[t - 1] ** 2
-        phi_rz = phi[t - 1] + (1 - phi[t - 1]) * ez * phi[t - 1]
+        # Reproduction of predators
+        number_of_predators = card_mrz * phi[t - 1]
+        number_of_events_predators = ez * number_of_predators
+        phi_rz = phi[t - 1] + \
+            (1 - phi[t - 1]) * (1 - (1 - pz) ** number_of_events_predators)
+        # Death of predators
         phi[t] = phi_rz - (1 - psi_ic) * phi_rz
+        # Death of preys
         psi_dy = psi_ic - phi[t] * psi_ic
-        psi[t] = psi_dy + (1 - psi_dy) * ey * psi_dy
+        # Reprodution of preys
+        number_of_preys = card_mry * psi_dy
+        number_of_events = ey * number_of_preys
+        psi[t] = psi_dy + (1 - psi_dy) * (1 - (1 - py) ** number_of_events)
 
     # Setup the plot
     figure(1)
+
+    _set_font()
 
     _setup_grid_and_axes('t (Seasons)', 'Population density')
 
