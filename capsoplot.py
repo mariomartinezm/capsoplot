@@ -742,7 +742,7 @@ def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
 
     _set_font()
 
-    _setup_grid_and_axes('t (Seasons)', 'Population density')
+    _setup_grid_and_axes('Preys', 'Predators')
 
     # Plot the data
     plot(psi, phi, 'k-', antialiased=True)
