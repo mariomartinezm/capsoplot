@@ -291,7 +291,8 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
     show()
 
 
-def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
+def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
+                            data_file=''):
     """
     Plot a mean field model that does not include intraspecific competiton nor
     prey reproduction.
@@ -321,14 +322,25 @@ def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
     psi[0] = psi0
     phi[0] = phi0
 
+    card_mrz = (2 * rz + 1) ** 2 - 1
+    pz = 1 / card_mrz
+
     # Calculate densities
     for t in index_set[1:]:
-        psi[t] = psi[t - 1] - phi[t - 1] * psi[t - 1]
-        phi[t] = phi[t - 1] + (1 - phi[t - 1]) * phi[t - 1] - \
-            (1 - psi[t - 1]) * phi[t - 1]
+        # Reproduction of predators
+        number_of_predators = card_mrz * phi[t - 1]
+        number_of_events_predators = ez * number_of_predators
+        phi_rz = phi[t - 1] + \
+            (1 - phi[t - 1]) * (1 - (1 - pz) ** number_of_events_predators)
+        # Death of predators
+        phi[t] = phi_rz - (1 - psi[t - 1]) * phi_rz
+        # Death of preys
+        psi[t] = psi[t - 1] - phi[t] * psi[t - 1]
 
     # Setup the plot
     figure(1)
+
+    _set_font()
 
     _setup_grid_and_axes('t (seasons)', 'Population density')
 
@@ -339,8 +351,8 @@ def plot_mf_minimal(N=100, psi0=1, phi0=0.01, data_file=''):
         plot(index_set, predators[0:N + 1], 'mo-', antialiased=True,
              label='Sim predators')
 
-    plot(index_set, psi, 'go-', antialiased=True, label='Mf preys')
-    plot(index_set, phi, 'ro-', antialiased=True, label='Mf predators')
+    plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
+    plot(index_set, phi, 'r-', antialiased=True, label='Mf predators')
 
     legend()
 
