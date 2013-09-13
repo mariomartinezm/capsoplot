@@ -84,7 +84,11 @@ def plot_time_series(file_name, tmin=-1, tmax=-1):
     show()
 
 
-def plot_time_series_normalized(file_name, tmin=-1, tmax=-1):
+def plot_time_series_normalized(file_name, tmin=-1, tmax=-1,
+                                prey_label='Preys', pred_label='Predators',
+                                prey_color='g', pred_color='r',
+                                prey_style='-', pred_style='-',
+                                prey_marker='', pred_marker=''):
     """
     Plot the time series (normalized) of a CaPso results file.
 
@@ -109,13 +113,15 @@ def plot_time_series_normalized(file_name, tmin=-1, tmax=-1):
 
     # plot the prey's data
     if tmin != -1 and tmax != -1:
-        plot(index[tmin:tmax], preys[tmin:tmax] / size, linewidth=1.5,
-             label='Preys')
-        plot(index[tmin:tmax], predators[tmin:tmax] / size, linewidth=1.5,
-             label='Predators')
+        plot(index[tmin:tmax], preys[tmin:tmax] / size, label=prey_label,
+             color=prey_color, linestyle=prey_style, marker=prey_marker)
+        plot(index[tmin:tmax], predators[tmin:tmax] / size, label=pred_label,
+             color=pred_color, linestyle=pred_style, marker=pred_marker)
     else:
-        plot(index, preys / size, linewidth=1.5, label='Preys')
-        plot(index, predators / size, linewidth=1.5, label='Predators')
+        plot(index, preys / size, label=prey_label, color=prey_color,
+             linestyle=prey_style, marker=prey_marker)
+        plot(index, predators / size, label=pred_label, color=pred_color,
+             linestyle=pred_style, marker=pred_marker)
 
     legend()
 
