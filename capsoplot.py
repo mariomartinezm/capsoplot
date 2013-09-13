@@ -438,7 +438,9 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
 
 
 def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
-                    rz=1, data_file=''):
+                    rz=1, prey_label='Mf preys', pred_label='Mf predators',
+                    prey_color='g', pred_color='r', prey_style='-',
+                    pred_style='-', prey_marker='', pred_marker=''):
     """
     Plot the mean field model approximation, coupled version.
 
@@ -449,22 +451,12 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
         alpha=0.1 (float)   -- The intraspecific competition coefficient.
         ey=1 (float)        -- The reproductive capacity of preys.
         ez=1 (float)        -- The reproductive capacity of predators.
-        data_file='' (str)  -- An optional CaPso results file for comparison.
 
     """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
     phi = zeros(len(index_set))
-
-    preys = []
-    predators = []
-
-    if data_file != '':
-        # Obtain data from file
-        index, preys, predators = loadtxt(data_file, unpack=True)
-        preys = preys / 131072
-        predators = predators / 131072
 
     # Initialize densities
     psi[0] = psi0
@@ -501,15 +493,10 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
 
     _setup_grid_and_axes('t (seasons)', 'Population density')
 
-    # Plot the data
-    if(data_file != ''):
-        plot(index_set, preys[0:N + 1], 'c-', antialiased=True,
-             label='Sim preys')
-        plot(index_set, predators[0:N + 1], 'm-', antialiased=True,
-             label='Sim predators')
-
-    plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
-    plot(index_set, phi, 'r-', antialiased=True, label='Mf predators')
+    plot(index_set, psi, antialiased=True, label=prey_label, color=prey_color,
+         linestyle=prey_style, marker=prey_marker)
+    plot(index_set, phi, antialiased=True, label=pred_label, color=pred_color,
+         linestyle=pred_style, marker=pred_marker)
 
     legend()
 
