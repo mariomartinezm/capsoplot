@@ -315,15 +315,6 @@ def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
     psi = zeros(len(index_set))
     phi = zeros(len(index_set))
 
-    preys = []
-    predators = []
-
-    if data_file != '':
-        # Obtain data from file
-        index, preys, predators = loadtxt(data_file, unpack=True)
-        preys = preys / 131072
-        predators = predators / 131072
-
     # Initialize densities
     psi[0] = psi0
     phi[0] = phi0
@@ -349,13 +340,6 @@ def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
     _set_font()
 
     _setup_grid_and_axes('t (seasons)', 'Population density')
-
-    # Plot the data
-    if(data_file != ''):
-        plot(index_set, preys[0:N + 1], 'co-', antialiased=True,
-             label='Sim preys')
-        plot(index_set, predators[0:N + 1], 'mo-', antialiased=True,
-             label='Sim predators')
 
     plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
     plot(index_set, phi, 'r-', antialiased=True, label='Mf predators')
