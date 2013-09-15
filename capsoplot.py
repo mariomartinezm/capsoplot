@@ -298,7 +298,9 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
 
 
 def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
-                            data_file=''):
+                            prey_label='Mf preys', pred_label='Mf predators',
+                            prey_color='g', pred_color='r', prey_style='-',
+                            pred_style='-', prey_marker='', pred_marker=''):
     """
     Plot a mean field model that does not include intraspecific competiton nor
     prey reproduction.
@@ -307,7 +309,6 @@ def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
         N=100 (int)         -- The number of iterations to calculate.
         psi0=1  (float)     -- The initial density of preys.
         phi0=0.01 (float)   -- The initial density of predators.
-        data_file='' (str)  -- An optional CaPso results file for comparison.
 
     """
     # Initialize data arrays
@@ -341,8 +342,10 @@ def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
 
     _setup_grid_and_axes('t (seasons)', 'Population density')
 
-    plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
-    plot(index_set, phi, 'r-', antialiased=True, label='Mf predators')
+    plot(index_set, psi, antialiased=True, label=prey_label, color=prey_color,
+         linestyle=prey_style, marker=prey_marker)
+    plot(index_set, phi, antialiased=True, label=pred_label, color=pred_color,
+         linestyle=pred_style, marker=pred_marker)
 
     legend()
 
