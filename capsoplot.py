@@ -331,9 +331,9 @@ def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
         phi_rz = phi[t - 1] + \
             (1 - phi[t - 1]) * (1 - (1 - pz) ** number_of_events_predators)
         # Death of predators
-        phi[t] = phi_rz - (1 - psi[t - 1]) * phi_rz
+        phi[t] = phi_rz - phi[t - 1] - (1 - psi[t - 1]) * (phi_rz - phi[t - 1])
         # Death of preys
-        psi[t] = psi[t - 1] - phi[t] * psi[t - 1]
+        psi[t] = psi[t - 1] - phi[t]
 
     # Setup the plot
     figure(1)
