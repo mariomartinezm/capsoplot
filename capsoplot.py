@@ -503,7 +503,8 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
 
 
 def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
-                          ez=1, rz=1):
+                          ez=1, rz=1, label='Mf', color='k', style='-',
+                          marker=''):
     """
     Plot the phase plot of the mean field model approximation, coupled version.
 
@@ -557,7 +558,10 @@ def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
     _setup_grid_and_axes('Preys', 'Predators')
 
     # Plot the data
-    plot(psi, phi, 'k-', antialiased=True)
+    plot(psi, phi, 'k-', label=label, color=color, linestyle=style,
+         marker=marker, antialiased=True)
+
+    legend()
 
     # Show the plot
     show()
