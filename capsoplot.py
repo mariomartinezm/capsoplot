@@ -167,7 +167,8 @@ def plot_fourier_spectra(file_name):
     show()
 
 
-def plot_phase_plot(file_name, tmin=-1, tmax=-1):
+def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='', color='k',
+                    style='-', marker=''):
     """
     Plot the the phase plot of a CaPso results file.
 
@@ -191,10 +192,14 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1):
 
     # Plot the data
     if tmin != -1 and tmax != -1:
-        plot(preys[tmin:tmax] / 131072, predators[tmin:tmax] / 131072, 'k-',
+        plot(preys[tmin:tmax] / 131072, predators[tmin:tmax] / 131072,
+             label=label, color=color, linestyle=style, marker=marker,
              antialiased=True)
     else:
-        plot(preys / 131072, predators / 131072, 'k-', antialiased=True)
+        plot(preys / 131072, predators / 131072, label=label, color=color,
+             linestyle=style, marker=marker, antialiased=True)
+
+    legend()
 
     # Show the plot
     show()
