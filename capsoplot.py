@@ -167,7 +167,7 @@ def plot_fourier_spectra(file_name):
     show()
 
 
-def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='', color='k',
+def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='Sim', color='k',
                     style='-', marker=''):
     """
     Plot the the phase plot of a CaPso results file.
