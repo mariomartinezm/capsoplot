@@ -399,18 +399,13 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
 
     # Calculate densities
     for t in index_set[1:]:
-        number_of_preys = card_mry * psi[t - 1]
-        number_of_events = ey * number_of_preys
+        ic = psi[t - 1] - alpha * psi[t - 1] ** 2
+        pnrz = (1 - pz) ** (ez * phi[t - 1] * card_mrz)
 
-        number_of_predators = card_mrz * phi[t - 1]
-        number_of_events_predators = ez * number_of_predators
+        phi[t] = (1 + pnrz * (phi[t - 1] - 1)) * ic
 
-        psi[t] = psi[t - 1] + \
-            (1 - psi[t - 1]) * (1 - (1 - py) ** number_of_events) - \
-            phi[t - 1] * psi[t - 1] - alpha * psi[t - 1] ** 2
-        phi[t] = phi[t - 1] + \
-            (1 - phi[t - 1]) * (1 - (1 - pz) ** number_of_events_predators) - \
-            (1 - psi[t - 1]) * phi[t - 1] - phi[t - 1]
+        psi[t] = 1 + ((1 - py) ** (ey * card_mry * ic * (phi[t - 1] - 1) *
+                                   pnrz)) * (ic * (phi[t - 1] - 1) * pnrz - 1)
 
     # Setup the plot
     figure(1)
