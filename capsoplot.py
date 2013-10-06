@@ -302,6 +302,57 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
     show()
 
 
+def plot_mf_minimal(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
+                    prey_label='Mf preys', pred_label='Mf predators',
+                    prey_color='g', pred_color='r', prey_style='-',
+                    pred_style='-', prey_marker='', pred_marker=''):
+    """
+    Plot a mean field model that does not include intraspecific competiton nor
+    prey reproduction.
+
+    Keyword arguments:
+        N=100 (int)         -- The number of iterations to calculate.
+        psi0=1  (float)     -- The initial density of preys.
+        phi0=0.01 (float)   -- The initial density of predators.
+
+    """
+    # Initialize data arrays
+    index_set = arange(0, N + 1)
+    psi = zeros(len(index_set))
+    phi = zeros(len(index_set))
+
+    # Initialize densities
+    psi[0] = psi0
+    phi[0] = phi0
+
+    card_mrz = (2 * rz + 1) ** 2 - 1
+    pz = 1 / card_mrz
+
+    # Calculate densities
+    for t in index_set[1:]:
+        nprz = (1 - pz) ** (ez * card_mrz * phi[t - 1])
+        phi[t] = psi[t - 1] * (1 + nprz * (phi[t - 1] - 1) - phi[t - 1])
+        psi[t] = psi[t - 1] - psi[t - 1] * ((1 + nprz * (phi[t - 1] - 1)) -
+                                            phi[t - 1])
+
+    # Setup the plot
+    figure(1)
+
+    _set_font()
+
+    _setup_grid_and_axes('t (seasons)', 'Population density')
+
+    plot(index_set, psi, antialiased=True, label=prey_label, color=prey_color,
+         linestyle=prey_style, marker=prey_marker)
+    plot(index_set, phi, antialiased=True, label=pred_label, color=pred_color,
+         linestyle=pred_style, marker=pred_marker)
+
+    legend()
+
+    # Show the plot
+    show()
+
+
 def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
                             prey_label='Mf preys', pred_label='Mf predators',
                             prey_color='g', pred_color='r', prey_style='-',
