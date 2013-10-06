@@ -455,8 +455,8 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
 
         phi[t] = (1 + pnrz * (phi[t - 1] - 1)) * ic
 
-        psi[t] = 1 + ((1 - py) ** (ey * card_mry * ic * (phi[t - 1] - 1) *
-                                   pnrz)) * (ic * (phi[t - 1] - 1) * pnrz - 1)
+        psi[t] = 1 + ((1 - py) ** (-ey * card_mry * ic * (phi[t - 1] - 1) *
+                                   pnrz)) * (-ic * (phi[t - 1] - 1) * pnrz - 1)
 
     # Setup the plot
     figure(1)
