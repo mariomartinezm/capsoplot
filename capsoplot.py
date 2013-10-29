@@ -84,11 +84,12 @@ def plot_time_series(file_name, tmin=-1, tmax=-1):
     show()
 
 
-def plot_time_series_normalized(file_name, tmin=-1, tmax=-1,
-                                prey_label='Preys', pred_label='Predators',
-                                prey_color='g', pred_color='r',
-                                prey_style='-', pred_style='-',
-                                prey_marker='', pred_marker=''):
+def plot_time_series_normalized(file_name, width=512, height=256, tmin=-1,
+                                tmax=-1, prey_label='Preys',
+                                pred_label='Predators', prey_color='g',
+                                pred_color='r', prey_style='-',
+                                pred_style='-', prey_marker='',
+                                pred_marker=''):
     """
     Plot the time series (normalized) of a CaPso results file.
 
@@ -100,7 +101,7 @@ def plot_time_series_normalized(file_name, tmin=-1, tmax=-1,
         tmax=-1 (int)     -- the maximum endpoint of the time interval to plot.
 
     """
-    size = 131072
+    size = width * height
 
     figure(1)
 
