@@ -230,6 +230,7 @@ def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
         N (int): the number of iterations to calculate.
         y0 (float): the initial density of preys.
         alpha (float): the intraspecific competition coefficient.
+        z (float): an adjustement factor.
         data_file (str): an optional CaPso results file.
 
     """
