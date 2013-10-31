@@ -625,7 +625,9 @@ def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
         phi0 (float): the initial density of predators.
         alpha (float): the intraspecific competition coefficient.
         ey (float): the reproductive capacity of preys.
+        ry (int): the radius of the preys' reproduction neighborhood.
         ez (float): the reproductive capacity of predators.
+        rz (int): the radius of the predators' reproduction neighborhood.
         label (string): the label for the data.
         color (string): the string specifying the line color.
         style (string): the string specifying the line style.
