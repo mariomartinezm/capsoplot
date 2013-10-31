@@ -275,6 +275,16 @@ def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
 
 
 def plot_mf_prey_reproduction(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
+    """
+    Plot the mean field term for the reproduction stage.
+
+    Kwargs:
+        N (int): the number of iterations to calculate.
+        psi0 (float): the initial density of preys.
+        ry (int): the radious of the reproduction neighborhood.
+        data_file (str): an optional CaPso results file.
+
+    """
     # Initialize data arrays
     index_set = arange(0, N + 1)
     psi = zeros(len(index_set))
