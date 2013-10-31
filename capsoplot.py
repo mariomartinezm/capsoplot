@@ -685,13 +685,15 @@ def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1,
     """
     Plot the phase plot of the mean field model approximation.
 
-    Keyword arguments:
-        N=100 (int)         -- The number of iterations to calculate.
-        psi0=1  (float)     -- The initial density of preys.
-        phi0=0.01 (float)   -- The initial density of predators.
-        alpha=0.1 (float)   -- The intraspecific competition coefficient.
-        ey=1 (float)        -- The reproductive capacity of preys.
-        ez=1 (float)        -- The reproductive capacity of predators.
+    Kwargs:
+        N (int): the number of iterations to calculate.
+        tmin (int): the minimal endpoint of the time interval to plot.
+        tmax (int): the maximum endpoint of the time interval to plot.
+        psi0  (float): the initial density of preys.
+        phi0 (float): the initial density of predators.
+        alph (float): the intraspecific competition coefficient.
+        ey (float): the reproductive capacity of preys.
+        ez (float): the reproductive capacity of predators.
 
     """
     # Initialize data arrays
