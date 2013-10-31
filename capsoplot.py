@@ -283,6 +283,7 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
         N (int): the number of iterations to calculate.
         psi0 (float): the initial density of preys.
         ry (int): the radious of the reproduction neighborhood.
+        ey (int): the reproductive capacity of the preys.
         data_file (str): an optional CaPso results file.
 
     """
