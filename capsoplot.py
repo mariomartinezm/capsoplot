@@ -617,13 +617,17 @@ def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
     """
     Plot the phase plot of the mean field model approximation, coupled version.
 
-    Keyword arguments:
-        N=100 (int)         -- The number of iterations to calculate.
-        psi0=1  (float)     -- The initial density of preys.
-        phi0=0.01 (float)   -- The initial density of predators.
-        alpha=0.1 (float)   -- The intraspecific competition coefficient.
-        ey=1 (float)        -- The reproductive capacity of preys.
-        ez=1 (float)        -- The reproductive capacity of predators.
+    Kwargs:
+        N (int): the number of iterations to calculate.
+        psi0 (float): the initial density of preys.
+        phi0 (float): the initial density of predators.
+        alpha (float): the intraspecific competition coefficient.
+        ey (float): the reproductive capacity of preys.
+        ez (float): the reproductive capacity of predators.
+        label (string): the label for the data.
+        color (string): the string specifying the line color.
+        style (string): the string specifying the line style.
+        marker (string): the string specifying the marker for the data points.
 
     """
     # Initialize data arrays
