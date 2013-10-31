@@ -94,11 +94,22 @@ def plot_time_series_normalized(file_name, width=512, height=256, tmin=-1,
     Plot the time series (normalized) of a CaPso results file.
 
     Args:
-        file_name (str)   -- the text file containing the results.
+        file_name (str): the text file containing the data to plot.
 
-    Keyword arguments:
-        tmin=-1 (int)     -- the minimal endpoint of the time interval to plot.
-        tmax=-1 (int)     -- the maximum endpoint of the time interval to plot.
+    Kwargs:
+        width (int): the width of the lattice used in the simulation.
+        height (int): the height of the lattice used in the simulation.
+        tmin (int): the minimal endpoint of the time interval to plot.
+        tmax (int): the maximum endpoint of the time interval to plot.
+        prey_label (str): the label for the preys' data.
+        pred_label (str): the label for the predators' data.
+        prey_color (str): the color string for the preys' data.
+        pred_color (str): the color string for the predators' data.
+        prey_style (str): the string specifying the line style for the preys.
+        pred_style (str): the string specifying the line style for the
+            predators.
+        prey_marker (str): the marker for the preys' data.
+        pred_marker (str): the marker for the predators' data.
 
     """
     size = width * height
