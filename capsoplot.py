@@ -6,7 +6,7 @@
 from __future__ import division
 from pylab import figure, grid, rc, xlabel, ylabel, plot, gca, tick_params
 from pylab import legend, show
-from scipy import loadtxt, arange, mean, fft, zeros, log
+from scipy import loadtxt, arange, mean, fft, zeros
 from scipy.fftpack import fftshift
 
 AXIS_LABEL_SIZE = 25
@@ -722,106 +722,6 @@ def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1,
         plot(psi[tmin:tmax], phi[tmin:tmax], 'k-', antialiased=True)
     else:
         plot(psi, phi, 'k-', antialiased=True)
-
-    # Show the plot
-    show()
-
-
-def plot_mf_seck(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5, rc=1,
-                 rrp=1):
-    """
-    Plot the mean field model derived by Dr. Seck for the intraspecific
-    competition and the reproduction of preys.
-
-    Keyword arguments:
-        N=1000 (int)        -- The number of iterations to calculate.
-        tmin=-1 (int)       -- the minimal endpoint of the interval to plot.
-        tmax=-1 (int)       -- the maximum endpoint of the interval to plot.
-        psi0=0.0001 (float) -- The initial density of preys.
-        alpha=0.5 (float)   -- The intraspecific competition coefficient.
-        rc=1 (int)          -- Radius of the compeition neighborhood.
-        rrp=1 (int)         -- Radius of the prey's reproduction neighborhood.
-
-    """
-    # Initialize data arrays
-    index_set = arange(0, N + 1)
-    psi = zeros(len(index_set))
-
-    # Initialize densities
-    psi[0] = psi0
-
-    # Initialize extra parameters
-    cmc = 1 / ((2 * rc + 1) ** 2)
-    aux = 0.6
-    w = 1 - (aux ** rrp)
-
-    # Calculate densities
-    for t in index_set[1:]:
-        dv = (1 / (1 - cmc)) * psi[t - 1] + 1 - (1 / (1 - cmc))
-        #psi[t] = psi[t - 1] - alpha * psi[t - 1] * dv
-        #psi[t] = psi[t - 1] + (w / log(t + 1)) * (1 - psi[t - 1]) * psi[t - 1]
-        psi[t] = psi[t - 1] - alpha * psi[t - 1] * dv + (w / log(t + 1)) * \
-            (1 - psi[t - 1]) * psi[t - 1]
-
-    # Set up the plot
-    figure(1)
-
-    _setup_grid_and_axes('t (Seasons)', 'Population density')
-
-    # Plot the data
-    if tmin != -1 and tmax != -1:
-        plot(index_set[tmin:tmax], psi[tmin:tmax], 'k.-', antialiased=True)
-    else:
-        plot(index_set, psi, 'k.-', antialiased=True)
-
-    # Show the plot
-    show()
-
-
-def plot_mf_seck_coupled(N=1000, tmin=-1, tmax=-1, psi0=0.0001, alpha=0.5,
-                         rc=1, rrp=1):
-    """
-    Plot the mean field model derived by Dr. Seck for the intraspecific
-    competition and the reproduction of preys, coupled version.
-
-    Keyword arguments:
-        N=1000 (int)        -- The number of iterations to calculate.
-        tmin=-1 (int)       -- the minimal endpoint of the interval to plot.
-        tmax=-1 (int)       -- the maximum endpoint of the interval to plot.
-        psi0=0.0001 (float) -- The initial density of preys.
-        alpha=0.5 (float)   -- The intraspecific competition coefficient.
-        rc=1 (int)          -- Radius of the compeition neighborhood.
-        rrp=1 (int)         -- Radius of the prey's reproduction neighborhood.
-
-    """
-    # Initialize data arrays
-    index_set = arange(0, N + 1)
-    psi = zeros(len(index_set))
-
-    # Initialize densities
-    psi[0] = psi0
-
-    # Initialize extra parameters
-    cmc = 1 / ((2 * rc + 1) ** 2)
-    aux = 0.6
-    w = 1 - (aux ** rrp)
-
-    # Calculate densities
-    for t in index_set[1:]:
-        dv = (1 / (1 - cmc)) * psi[t - 1] + 1 - (1 / (1 - cmc))
-        temp = psi[t - 1] - alpha * psi[t - 1] * dv
-        psi[t] = temp + (w / log(t + 1)) * (1 - temp) * temp
-
-    # Set up the plot
-    figure(1)
-
-    _setup_grid_and_axes('t (Seasons)', 'Population density')
-
-    # Plot the data
-    if tmin != -1 and tmax != -1:
-        plot(index_set[tmin:tmax], psi[tmin:tmax], 'k.-', antialiased=True)
-    else:
-        plot(index_set, psi, 'k.-', antialiased=True)
 
     # Show the plot
     show()
