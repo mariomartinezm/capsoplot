@@ -338,10 +338,21 @@ def plot_mf_minimal(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
     Plot a mean field model that does not include intraspecific competiton nor
     prey reproduction.
 
-    Keyword arguments:
-        N=100 (int)         -- The number of iterations to calculate.
-        psi0=1  (float)     -- The initial density of preys.
-        phi0=0.01 (float)   -- The initial density of predators.
+    Kwargs:
+        N (int): the number of iterations to calculate.
+        psi0 (float): the initial density of preys.
+        phi0 (float): the initial density of predators.
+        ez (int): the reproductive capacity of predators.
+        rz (int): the radius of the reproduction neighborhood.
+        prey_label (str): the label for the preys' data.
+        pred_label (str): the label for the predators' data.
+        prey_color (str): the color string for the preys' data.
+        pred_color (str): the color string for the predators' data.
+        prey_style (str): the string specifying the line style for the preys.
+        pred_style (str): the string specifying the line style for the
+            predators.
+        prey_marker (str): the marker for the preys' data.
+        pred_marker (str): the marker for the predators' data.
 
     """
     # Initialize data arrays
