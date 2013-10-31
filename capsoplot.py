@@ -185,11 +185,16 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='Sim', color='k',
     Plot the the phase plot of a CaPso results file.
 
     Args:
-        file_name (str)   -- the text file containing the results.
+        file_name (str): the text file containing the results.
 
-    Keyword arguments:
-        tmin=-1 (int)     -- the minimal endpoint of the time interval to plot.
-        tmax=-1 (int)     -- the maximum endpoint of the time interval to plot.
+    Kwargs:
+        tmin (int): the minimal endpoint of the time interval to plot.
+        tmax (int): the maximum endpoint of the time interval to plot.
+        label (string): the label for the data.
+        color (string): the string specifying the line color.
+        style (string): the string specifying the line style.
+        marker (string): the string specifying the marker for the data points.
+
     """
     # Load data file
     index, preys, predators = loadtxt(file_name, unpack=True)
