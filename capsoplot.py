@@ -146,7 +146,7 @@ def plot_fourier_spectra(file_name):
     Plot the the Fourier spectra of a CaPso results file.
 
     Args:
-        file_name (str)   -- the text file containing the results.
+        file_name (str): the text file containing the results.
 
     """
     # load data file
