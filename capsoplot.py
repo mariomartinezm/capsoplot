@@ -179,8 +179,8 @@ def plot_fourier_spectra(file_name):
     show()
 
 
-def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='Sim', color='k',
-                    style='-', marker=''):
+def plot_phase_plot(file_name, width=512, height=256, tmin=-1, tmax=-1,
+                    label='Sim', color='k', style='-', marker=''):
     """
     Plot the the phase plot of a CaPso results file.
 
@@ -188,6 +188,8 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='Sim', color='k',
         file_name (str): the text file containing the results.
 
     Kwargs:
+        width (int): the width of the lattice used in the simulation.
+        height (int): the height of the lattice used in the simulation.
         tmin (int): the minimal endpoint of the time interval to plot.
         tmax (int): the maximum endpoint of the time interval to plot.
         label (string): the label for the data.
@@ -196,6 +198,8 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='Sim', color='k',
         marker (string): the string specifying the marker for the data points.
 
     """
+    size = width * height
+
     # Load data file
     index, preys, predators = loadtxt(file_name, unpack=True)
 
@@ -209,11 +213,11 @@ def plot_phase_plot(file_name, tmin=-1, tmax=-1, label='Sim', color='k',
 
     # Plot the data
     if tmin != -1 and tmax != -1:
-        plot(preys[tmin:tmax] / 131072, predators[tmin:tmax] / 131072,
+        plot(preys[tmin:tmax] / size, predators[tmin:tmax] / size,
              label=label, color=color, linestyle=style, marker=marker,
              antialiased=True)
     else:
-        plot(preys / 131072, predators / 131072, label=label, color=color,
+        plot(preys / size, predators / size, label=label, color=color,
              linestyle=style, marker=marker, antialiased=True)
 
     legend()
