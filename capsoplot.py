@@ -56,7 +56,8 @@ def plot_time_series(file_name, tmin=-1, tmax=-1):
     ax2.tick_params(axis='both', which='major', labelsize=TICKS_LABEL_SIZE)
 
     # load the results file
-    index, preys, predators = loadtxt(file_name, unpack=True)
+    index, preys, predators = loadtxt(file_name, usecols=(0, 1, 2),
+                                      unpack=True)
 
     # plot the prey's data
     if tmin != -1 and tmax != -1:
@@ -121,7 +122,8 @@ def plot_time_series_normalized(file_name, width=512, height=256, tmin=-1,
     _setup_grid_and_axes('Time (Seasons)', 'Density')
 
     # load the results file
-    index, preys, predators = loadtxt(file_name, unpack=True)
+    index, preys, predators = loadtxt(file_name, usecols=(0, 1, 2),
+                                      unpack=True)
 
     # plot the prey's data
     if tmin != -1 and tmax != -1:
@@ -150,7 +152,7 @@ def plot_fourier_spectra(file_name):
 
     """
     # load data file
-    index, preys, predators = loadtxt(file_name, unpack=True)
+    index, preys = loadtxt(file_name, usecols=(0, 1), unpack=True)
 
     N = preys.size
 
@@ -201,7 +203,8 @@ def plot_phase_plot(file_name, width=512, height=256, tmin=-1, tmax=-1,
     size = width * height
 
     # Load data file
-    index, preys, predators = loadtxt(file_name, unpack=True)
+    index, preys, predators = loadtxt(file_name, usecols=(0, 1, 2),
+                                      unpack=True)
 
     figure(1, (9.0, 7))
 
