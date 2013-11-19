@@ -4,6 +4,8 @@
 """
 
 from __future__ import division
+from os import listdir
+from os.path import isfile, join
 from pylab import figure, grid, rc, xlabel, ylabel, plot, gca, tick_params
 from pylab import legend, show
 from scipy import loadtxt, arange, mean, fft, zeros
@@ -27,6 +29,35 @@ def _setup_grid_and_axes(label_x, label_y):
 
     # Set the axis ticks
     tick_params(axis='both', which='major', labelsize=TICKS_LABEL_SIZE)
+
+
+def get_average_column(path, column=0):
+    """
+    Get the index-based average column for a series of results files.
+
+    Args:
+        path(str): the path containing the results files.
+
+    Kwargs:
+        column (int): the column index in a results file.
+
+    Returns:
+        A numpy.ndarray containing the average values for the specified
+        column-index of a series of results files.
+
+    """
+    files = [f for f in listdir(path) if isfile(join(path, f))
+             and f.endswith(".txt")]
+
+    col_seq = column,
+
+    sum_col = loadtxt(join(path, files[0]), usecols=col_seq, unpack=True)
+
+    for file in files[1:]:
+        sum_col = sum_col + loadtxt(join(path, file), usecols=col_seq,
+                                    unpack=True)
+
+    return sum_col / len(files)
 
 
 def plot_time_series(file_name, tmin=-1, tmax=-1):
