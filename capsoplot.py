@@ -10,6 +10,7 @@ from pylab import figure, grid, rc, xlabel, ylabel, plot, gca, tick_params
 from pylab import legend, show
 from scipy import loadtxt, arange, mean, fft, zeros
 from scipy.fftpack import fftshift
+from scipy.optimize import leastsq
 
 AXIS_LABEL_SIZE = 25
 TICKS_LABEL_SIZE = 20
@@ -302,6 +303,34 @@ def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
 
     # Show the plot
     show()
+
+
+def plot_leastsq_for_reproduction(pop, birth_rate, e, r):
+    p0 = [e, r]
+
+    plsq = leastsq(_residuals, p0, args=(birth_rate, pop))
+
+    print plsq[0]
+
+    plot(pop, _peval(pop, plsq[0]), pop, birth_rate, '.')
+
+
+def _residuals(params, y, x):
+    e, r = params
+    card = (2 * r + 1) ** 2 - 1
+    p = 1 / card
+    err = y - (1 - x) * (1 - (1 - p) ** (card * e * x))
+
+    return err
+
+
+def _peval(x, params):
+    e = params[0]
+    r = params[1]
+    card = (2 * r + 1) ** 2 - 1
+    p = 1 / card
+
+    return (1 - x) * (1 - (1 - p) ** (card * e * x))
 
 
 def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
