@@ -308,9 +308,11 @@ def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
 def plot_leastsq_for_reproduction(pop, birth_rate, e, r):
     p0 = [e, r]
 
-    plsq = leastsq(_residuals, p0, args=(birth_rate, pop))
+    plsq = leastsq(_residuals, p0, args=(birth_rate, pop), full_output=1)
 
-    print plsq[0]
+    print 'Solution found: {0}'.format(plsq[0])
+    print 'Output flag: {0}'.format(plsq[4])
+    print 'Output msg: {0}'.format(plsq[3])
 
     plot(pop, _peval(pop, plsq[0]), pop, birth_rate, '.')
 
