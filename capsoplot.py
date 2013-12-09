@@ -8,7 +8,7 @@ from os import listdir
 from os.path import isfile, join
 from pylab import figure, grid, rc, xlabel, ylabel, plot, gca, tick_params
 from pylab import legend, show
-from scipy import loadtxt, arange, mean, fft, zeros
+from scipy import loadtxt, arange, mean, fft, zeros, polyfit, polyval, sqrt
 from scipy.fftpack import fftshift
 from scipy.optimize import leastsq
 
@@ -333,6 +333,26 @@ def _peval(x, params):
     p = 1 / card
 
     return (1 - x) * (1 - (1 - p) ** (card * e * x))
+
+
+def plot_reg_for_predator_death(prey_data, pred_dp):
+    n = len(prey_data)
+
+    # polynomial regression
+    (ar, br) = polyfit(prey_data, pred_dp, 1)
+    reg = polyval([ar, br], prey_data)
+
+    # compute the mean square error
+    err = sqrt(sum((reg - pred_dp) ** 2) / n)
+
+    print('Parameters: a = {0}, b = {1}'.format(ar, br))
+    print('Mean square error = {0}'.format(err))
+
+    # plots
+    plot(prey_data, pred_dp, 'b.')
+    plot(prey_data, reg, 'g-')
+    plot(prey_data, 1 - prey_data, 'r-')
+    legend(['Original data', 'Regression', 'Mean field'])
 
 
 def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
