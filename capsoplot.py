@@ -685,6 +685,8 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
         ry (int): the radius of the preys' reproduction neighborhood.
         ez (float): the reproductive capacity of predators.
         rz (int): the radius of the predators' reproduction neighborhood.
+        a (float): the ordinate of the line that defines predator mortality.
+        b (float): the slope of the line that defines predator mortality.
         prey_label (str): the label for the preys' data.
         pred_label (str): the label for the predators' data.
         prey_color (str): the color string for the preys' data.
