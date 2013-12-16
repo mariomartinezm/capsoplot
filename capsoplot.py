@@ -355,6 +355,26 @@ def plot_reg_for_predator_death(prey_data, pred_dp):
     legend(['Original data', 'Regression', 'Mean field'])
 
 
+def plot_reg_for_prey_death(pred_data, prey_dp):
+    n = len(pred_data)
+
+    # polynomial regression
+    cr = polyfit(pred_data, prey_dp, 1)
+    reg = polyval(cr, pred_data)
+
+    # compute the mean square error
+    err = sqrt(sum((reg - prey_dp) ** 2) / n)
+
+    print('Parameters: c = {0}'.format(cr))
+    print('Mean square error = {0}'.format(err))
+
+    # plots
+    plot(pred_data, prey_dp, 'b.')
+    plot(pred_data, reg, 'g-')
+    plot(pred_data, pred_data, 'r-')
+    legend(['Original data', 'Regression', 'Mean field'])
+
+
 def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
     """
     Plot the mean field term for the intraspecific competition.
@@ -669,7 +689,7 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
 
 
 def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
-                    rz=1, a=-1, b=1, prey_label='Mf preys',
+                    rz=1, a=-1, b=1, c=1, prey_label='Mf preys',
                     pred_label='Mf predators', prey_color='g', pred_color='r',
                     prey_style='-', pred_style='-', prey_marker='',
                     pred_marker=''):
@@ -687,6 +707,7 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
         rz (int): the radius of the predators' reproduction neighborhood.
         a (float): the ordinate of the line that defines predator mortality.
         b (float): the slope of the line that defines predator mortality.
+        c (float): the slope of the line that defines prey mortality.
         prey_label (str): the label for the preys' data.
         pred_label (str): the label for the predators' data.
         prey_color (str): the color string for the preys' data.
@@ -725,7 +746,7 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
         # Death of predators
         phi[t] = phi_rz - (b + a * psi_ic) * phi_rz
         # Death of preys
-        psi_dy = psi_ic - phi[t]
+        psi_dy = psi_ic - c * phi[t] * psi_ic
         # Reprodution of preys
         number_of_preys = card_mry * psi_dy
         number_of_events = ey * number_of_preys
