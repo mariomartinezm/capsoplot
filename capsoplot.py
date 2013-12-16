@@ -689,7 +689,7 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
 
 
 def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
-                    rz=1, a=-1, b=1, c=1, prey_label='Mf preys',
+                    rz=1, a=-1, b=1, c=1, d=0, prey_label='Mf preys',
                     pred_label='Mf predators', prey_color='g', pred_color='r',
                     prey_style='-', pred_style='-', prey_marker='',
                     pred_marker=''):
@@ -746,7 +746,7 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
         # Death of predators
         phi[t] = phi_rz - (b + a * psi_ic) * phi_rz
         # Death of preys
-        psi_dy = psi_ic - c * phi[t] * psi_ic
+        psi_dy = psi_ic - (d + c * phi[t]) * psi_ic
         # Reprodution of preys
         number_of_preys = card_mry * psi_dy
         number_of_events = ey * number_of_preys
