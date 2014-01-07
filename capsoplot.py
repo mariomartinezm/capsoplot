@@ -825,7 +825,7 @@ def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
         psi[t] = psi_dy + (1 - psi_dy) * (1 - (1 - py) ** number_of_events)
 
     # Setup the plot
-    figure(1)
+    figure(1, (9, 8))
 
     _set_font()
 
