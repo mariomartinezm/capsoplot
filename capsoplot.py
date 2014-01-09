@@ -238,7 +238,7 @@ def plot_phase_plot(file_name, width=512, height=256, tmin=-1, tmax=-1,
     index, preys, predators = loadtxt(file_name, usecols=(0, 1, 2),
                                       unpack=True)
 
-    figure(1, (9.0, 7))
+    figure(1, (9.0, 8))
 
     grid(True)
 
