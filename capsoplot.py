@@ -305,7 +305,15 @@ def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
     show()
 
 
-def plot_leastsq_for_reproduction(pop, birth_rate, e, r):
+def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
+                                  fit_label='Fitted curve',
+                                  birth_rate_label='Birth rate data',
+                                  fit_color='b',
+                                  birth_rate_color='g',
+                                  fit_style='-',
+                                  birth_rate_style='.',
+                                  fit_marker='',
+                                  birth_rate_marker='.'):
     p0 = [e, r]
 
     plsq = leastsq(_residuals, p0, args=(birth_rate, pop), full_output=1)
@@ -314,7 +322,18 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r):
     print 'Output flag: {0}'.format(plsq[4])
     print 'Output msg: {0}'.format(plsq[3])
 
-    plot(pop, _peval(pop, plsq[0]), pop, birth_rate, '.')
+    figure(1, (9, 8))
+
+    grid(True)
+
+    plot(pop, _peval(pop, plsq[0]), label=fit_label, color=fit_color,
+         linestyle=fit_style, marker=fit_marker)
+    plot(pop, birth_rate, '.', label=birth_rate_label, color=birth_rate_color,
+         linestyle=birth_rate_style, marker=birth_rate_marker)
+
+    legend()
+
+    show()
 
 
 def _residuals(params, y, x):
