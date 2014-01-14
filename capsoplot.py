@@ -61,12 +61,12 @@ def get_average_column(path, column=0):
     return sum_col / len(files)
 
 
-def plot_time_series_normalized(file_name, width=512, height=256, tmin=-1,
-                                tmax=-1, prey_label='Preys',
-                                pred_label='Predators', prey_color='g',
-                                pred_color='r', prey_style='-',
-                                pred_style='-', prey_marker='',
-                                pred_marker=''):
+def plot_time_series(file_name, width=512, height=256, tmin=-1,
+                     tmax=-1, prey_label='Preys',
+                     pred_label='Predators', prey_color='g',
+                     pred_color='r', prey_style='-',
+                     pred_style='-', prey_marker='',
+                     pred_marker=''):
     """
     Plot the time series (normalized) of a CaPso results file.
 
