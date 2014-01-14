@@ -61,62 +61,6 @@ def get_average_column(path, column=0):
     return sum_col / len(files)
 
 
-def plot_time_series(file_name, tmin=-1, tmax=-1):
-    """
-    Plot the time series of a CaPso results file.
-
-    Args:
-        file_name (str): the text file containing the results.
-
-    Kwargs:
-        tmin (int): the minimal endpoint of the time interval to plot.
-        tmax (int): the maximum endpoint of the time interval to plot.
-
-    """
-    fig = figure(1)
-
-    _set_font()
-
-    ax1 = fig.add_subplot(111)
-    ax1.grid(True)
-    ax1.set_xlabel('Time (Seasons)', fontsize=AXIS_LABEL_SIZE)
-    ax1.set_ylabel('Preys', fontsize=AXIS_LABEL_SIZE)
-    ax1.tick_params(axis='both', which='major', labelsize=TICKS_LABEL_SIZE)
-
-    ax2 = ax1.twinx()
-    ax2.set_ylabel('Predators', fontsize=AXIS_LABEL_SIZE)
-    ax2.tick_params(axis='both', which='major', labelsize=TICKS_LABEL_SIZE)
-
-    # load the results file
-    index, preys, predators = loadtxt(file_name, usecols=(0, 1, 2),
-                                      unpack=True)
-
-    # plot the prey's data
-    if tmin != -1 and tmax != -1:
-        preys_plot, = ax1.plot(index[tmin:tmax], preys[tmin:tmax],
-                               linewidth=1.5)
-    else:
-        preys_plot, = ax1.plot(index, preys, linewidth=1.5)
-
-    preys_plot.set_antialiased(True)
-    preys_plot.set_color('g')
-
-    # plot the predator's data
-    if tmin != -1 and tmax != -1:
-        predators_plot, = ax2.plot(index[tmin:tmax], predators[tmin:tmax],
-                                   linewidth=1.5)
-    else:
-        predators_plot, = ax2.plot(index, predators, linewidth=1.5)
-    predators_plot.set_antialiased(True)
-    predators_plot.set_color('r')
-
-    legend([preys_plot, predators_plot], ['Preys', 'Predators'], loc=2,
-           shadow=True)
-
-    # Show the plot
-    show()
-
-
 def plot_time_series_normalized(file_name, width=512, height=256, tmin=-1,
                                 tmax=-1, prey_label='Preys',
                                 pred_label='Predators', prey_color='g',
