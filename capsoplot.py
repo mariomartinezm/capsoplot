@@ -312,6 +312,19 @@ def _peval(x, params):
     return (1 - x) * (1 - (1 - p) ** (card * e * x))
 
 
+def get_reg_for_predator_death(prey_data, pred_dp):
+    n = len(prey_data)
+
+    # polynomial regression
+    (ar, br) = polyfit(prey_data, pred_dp, 1)
+    reg = polyval([ar, br], prey_data)
+
+    # compute the mean square error
+    err = sqrt(sum((reg - pred_dp) ** 2) / n)
+
+    return ar, br, err
+
+
 def plot_reg_for_predator_death(prey_data, pred_dp,
                                 fit_label='Fitted curve',
                                 death_rate_label='Death rate data',
@@ -325,14 +338,9 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
                                 fit_marker='',
                                 death_rate_marker='.',
                                 mf_marker=''):
-    n = len(prey_data)
+    ar, br, err = get_reg_for_predator_death(prey_data, pred_dp)
 
-    # polynomial regression
-    (ar, br) = polyfit(prey_data, pred_dp, 1)
     reg = polyval([ar, br], prey_data)
-
-    # compute the mean square error
-    err = sqrt(sum((reg - pred_dp) ** 2) / n)
 
     print('Parameters: a = {0}, b = {1}'.format(ar, br))
     print('Mean square error = {0}'.format(err))
@@ -343,12 +351,12 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
 
     _setup_grid_and_axes('Density of preys', 'Death rate of predators')
 
-    # plots
-    plot(prey_data, reg, antialiased=True, label=fit_label, color=fit_color,
-         linestyle=fit_style, marker=fit_marker)
+    # Plot the birth rate data first so the fit line appears above the points
     plot(prey_data, pred_dp, antialiased=True, label=death_rate_label,
          color=death_rate_color, linestyle=death_rate_style,
          marker=death_rate_marker)
+    plot(prey_data, reg, antialiased=True, label=fit_label, color=fit_color,
+         linestyle=fit_style, marker=fit_marker)
     plot(prey_data, 1 - prey_data, antialiased=True, label=mf_label,
          color=mf_color, linestyle=mf_style, marker=mf_marker)
 
