@@ -306,6 +306,8 @@ def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
 
 
 def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
+                                  x_label='Density',
+                                  y_label='Growth rate',
                                   fit_label='Fitted curve',
                                   birth_rate_label='Birth rate data',
                                   fit_color='b',
@@ -324,7 +326,9 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
 
     figure(1, (9, 8))
 
-    grid(True)
+    _set_font()
+
+    _setup_grid_and_axes(x_label, y_label)
 
     plot(pop, _peval(pop, plsq[0]), label=fit_label, color=fit_color,
          linestyle=fit_style, marker=fit_marker)
