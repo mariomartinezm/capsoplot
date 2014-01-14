@@ -285,6 +285,14 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
     show()
 
 
+def get_leastsq_for_reproduction(pop, birth_rate, e, r):
+    p0 = [e, r]
+
+    plsq = leastsq(_residuals, p0, args=(birth_rate, pop), full_output=1)
+
+    return plsq[0], plsq[4], plsq[3]
+
+
 def _residuals(params, y, x):
     e, r = params
     card = (2 * r + 1) ** 2 - 1
