@@ -260,13 +260,13 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
                                   birth_rate_style='.',
                                   fit_marker='',
                                   birth_rate_marker='.'):
-    p0 = [e, r]
 
-    plsq = leastsq(_residuals, p0, args=(birth_rate, pop), full_output=1)
+    solution, output_flag, output_msg = \
+        get_leastsq_for_reproduction(pop, birth_rate, e, r)
 
-    print 'Solution found: {0}'.format(plsq[0])
-    print 'Output flag: {0}'.format(plsq[4])
-    print 'Output msg: {0}'.format(plsq[3])
+    print 'Solution found: {0}'.format(solution)
+    print 'Output flag: {0}'.format(output_flag)
+    print 'Output msg: {0}'.format(output_msg)
 
     figure(1, (9, 8))
 
@@ -274,7 +274,7 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
 
     _setup_grid_and_axes(x_label, y_label)
 
-    plot(pop, _peval(pop, plsq[0]), antialiased=True, label=fit_label,
+    plot(pop, _peval(pop, solution), antialiased=True, label=fit_label,
          color=fit_color, linestyle=fit_style, marker=fit_marker)
     plot(pop, birth_rate, antialiased=True, label=birth_rate_label,
          color=birth_rate_color, linestyle=birth_rate_style,
