@@ -401,8 +401,22 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
 
     legend()
 
+    show()
 
-def plot_reg_for_prey_death(pred_data, prey_dp):
+
+def plot_reg_for_prey_death(pred_data, prey_dp,
+                            fit_label='Fitted curve',
+                            predation_rate_label='Death rate data',
+                            mf_label='Mean field term',
+                            fit_color='b',
+                            predation_rate_color='g',
+                            mf_color='r',
+                            fit_style='-',
+                            predation_rate_style='.',
+                            mf_style='-',
+                            fit_marker='',
+                            predation_rate_marker='.',
+                            mf_marker=''):
     n = len(pred_data)
 
     # polynomial regression
@@ -415,11 +429,24 @@ def plot_reg_for_prey_death(pred_data, prey_dp):
     print('Parameters: c = {0}'.format(cr))
     print('Mean square error = {0}'.format(err))
 
+    figure(1, (9, 8))
+
+    _set_font()
+
+    _setup_grid_and_axes('Density of predators', 'Predation rate')
+
     # plots
-    plot(pred_data, prey_dp, 'b.')
-    plot(pred_data, reg, 'g-')
-    plot(pred_data, pred_data, 'r-')
-    legend(['Original data', 'Regression', 'Mean field'])
+    plot(pred_data, reg, antialiased=True, label=fit_label, color=fit_color,
+         linestyle=fit_style, marker=fit_marker)
+    plot(pred_data, prey_dp, antialiased=True, label=predation_rate_label,
+         color=predation_rate_color, linestyle=predation_rate_style,
+         marker=predation_rate_marker)
+    plot(pred_data, pred_data, antialiased=True, label=mf_label,
+         color=mf_color, linestyle=mf_style, marker=mf_marker)
+
+    legend()
+
+    show()
 
 
 def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
