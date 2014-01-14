@@ -330,10 +330,11 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
 
     _setup_grid_and_axes(x_label, y_label)
 
-    plot(pop, _peval(pop, plsq[0]), label=fit_label, color=fit_color,
-         linestyle=fit_style, marker=fit_marker)
-    plot(pop, birth_rate, '.', label=birth_rate_label, color=birth_rate_color,
-         linestyle=birth_rate_style, marker=birth_rate_marker)
+    plot(pop, _peval(pop, plsq[0]), antialiased=True, label=fit_label,
+         color=fit_color, linestyle=fit_style, marker=fit_marker)
+    plot(pop, birth_rate, antialiased=True, label=birth_rate_label,
+         color=birth_rate_color, linestyle=birth_rate_style,
+         marker=birth_rate_marker)
 
     legend()
 
@@ -358,7 +359,19 @@ def _peval(x, params):
     return (1 - x) * (1 - (1 - p) ** (card * e * x))
 
 
-def plot_reg_for_predator_death(prey_data, pred_dp):
+def plot_reg_for_predator_death(prey_data, pred_dp,
+                                fit_label='Fitted curve',
+                                death_rate_label='Death rate data',
+                                mf_label='Mean field term',
+                                fit_color='b',
+                                death_rate_color='g',
+                                mf_color='r',
+                                fit_style='-',
+                                death_rate_style='.',
+                                mf_style='-',
+                                fit_marker='',
+                                death_rate_marker='.',
+                                mf_marker=''):
     n = len(prey_data)
 
     # polynomial regression
@@ -371,11 +384,22 @@ def plot_reg_for_predator_death(prey_data, pred_dp):
     print('Parameters: a = {0}, b = {1}'.format(ar, br))
     print('Mean square error = {0}'.format(err))
 
+    figure(1, (9, 8))
+
+    _set_font()
+
+    _setup_grid_and_axes('Density of preys', 'Death rate of predators')
+
     # plots
-    plot(prey_data, pred_dp, 'b.')
-    plot(prey_data, reg, 'g-')
-    plot(prey_data, 1 - prey_data, 'r-')
-    legend(['Original data', 'Regression', 'Mean field'])
+    plot(prey_data, reg, antialiased=True, label=fit_label, color=fit_color,
+         linestyle=fit_style, marker=fit_marker)
+    plot(prey_data, pred_dp, antialiased=True, label=death_rate_label,
+         color=death_rate_color, linestyle=death_rate_style,
+         marker=death_rate_marker)
+    plot(prey_data, 1 - prey_data, antialiased=True, label=mf_label,
+         color=mf_color, linestyle=mf_style, marker=mf_marker)
+
+    legend()
 
 
 def plot_reg_for_prey_death(pred_data, prey_dp):
