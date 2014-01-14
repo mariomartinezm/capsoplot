@@ -274,11 +274,12 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
 
     _setup_grid_and_axes(x_label, y_label)
 
-    plot(pop, _peval(pop, solution), antialiased=True, label=fit_label,
-         color=fit_color, linestyle=fit_style, marker=fit_marker)
+    # Plot the birth rate data first so the fit line appears above the points
     plot(pop, birth_rate, antialiased=True, label=birth_rate_label,
          color=birth_rate_color, linestyle=birth_rate_style,
          marker=birth_rate_marker)
+    plot(pop, _peval(pop, solution), antialiased=True, label=fit_label,
+         color=fit_color, linestyle=fit_style, marker=fit_marker)
 
     legend()
 
