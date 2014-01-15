@@ -7,7 +7,7 @@ from __future__ import division
 from os import listdir
 from os.path import isfile, join
 from pylab import figure, grid, rc, xlabel, ylabel, plot, gca, tick_params
-from pylab import legend, show
+from pylab import legend
 from scipy import loadtxt, arange, mean, fft, zeros, polyfit, polyval, sqrt
 from scipy.fftpack import fftshift
 from scipy.optimize import leastsq
@@ -115,8 +115,6 @@ def plot_time_series(file_name, width=512, height=256, tmin=-1,
 
     legend()
 
-    # Show the plot
-
 
 def plot_fourier_spectra(file_name):
     """
@@ -151,9 +149,6 @@ def plot_fourier_spectra(file_name):
     plot(f, F, 'k-', antialiased=True, linewidth=1.0)
     x_axis = gca()
     x_axis.set_xlim([0, f.max()])
-
-    # Show the plot
-    show()
 
 
 def plot_phase_plot(file_name, width=512, height=256, tmin=-1, tmax=-1,
@@ -200,9 +195,6 @@ def plot_phase_plot(file_name, width=512, height=256, tmin=-1, tmax=-1,
 
     legend()
 
-    # Show the plot
-    show()
-
 
 def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
                     label='Prey birth rate', color='k', style='.', marker='.'):
@@ -244,9 +236,6 @@ def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
 
     legend()
 
-    # Show the plot
-    show()
-
 
 def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
                                   x_label='Density',
@@ -281,8 +270,6 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
          color=fit_color, linestyle=fit_style, marker=fit_marker)
 
     legend()
-
-    show()
 
 
 def get_leastsq_for_reproduction(pop, birth_rate, e, r):
@@ -361,8 +348,6 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
 
     legend()
 
-    show()
-
 
 def get_reg_for_prey_death(pred_data, prey_dp):
     n = len(pred_data)
@@ -414,8 +399,6 @@ def plot_reg_for_prey_death(pred_data, prey_dp,
 
     legend()
 
-    show()
-
 
 def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
     """
@@ -465,9 +448,6 @@ def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
     plot(index_set, Y, 'bo-', antialiased=True, label='Mean field')
 
     legend()
-
-    # Show the plot
-    show()
 
 
 def plot_mf_prey_reproduction(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
@@ -522,9 +502,6 @@ def plot_mf_prey_reproduction(N=100, psi0=0.001, ry=1, ey=1, data_file=''):
     plot(index_set, psi, 'g-', antialiased=True, label='Mf preys')
 
     legend()
-
-    # Show the plot
-    show()
 
 
 def plot_mf_minimal(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
@@ -584,9 +561,6 @@ def plot_mf_minimal(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
          linestyle=pred_style, marker=pred_marker)
 
     legend()
-
-    # Show the plot
-    show()
 
 
 def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
@@ -651,9 +625,6 @@ def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
          linestyle=pred_style, marker=pred_marker)
 
     legend()
-
-    # Show the plot
-    show()
 
 
 def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
@@ -725,9 +696,6 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
     plot(index_set, phi, 'r-', antialiased=True, label='Mf predators')
 
     legend()
-
-    # Show the plot
-    show()
 
 
 def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
@@ -808,8 +776,6 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
 
     legend()
 
-    # Show the plot
-
 
 def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
                           ez=1, rz=1, label='Mf', color='k', style='-',
@@ -878,9 +844,6 @@ def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
 
     legend()
 
-    # Show the plot
-    show()
-
 
 def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1,
                   ey=1, ez=1):
@@ -924,6 +887,3 @@ def plot_mf_phase(N=100, tmin=-1, tmax=-1, psi0=1, phi0=0.01, alpha=0.1,
         plot(psi[tmin:tmax], phi[tmin:tmax], 'k-', antialiased=True)
     else:
         plot(psi, phi, 'k-', antialiased=True)
-
-    # Show the plot
-    show()
