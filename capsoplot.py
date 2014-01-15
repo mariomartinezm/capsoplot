@@ -116,7 +116,6 @@ def plot_time_series(file_name, width=512, height=256, tmin=-1,
     legend()
 
     # Show the plot
-    show()
 
 
 def plot_fourier_spectra(file_name):
@@ -810,7 +809,6 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
     legend()
 
     # Show the plot
-    show()
 
 
 def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
