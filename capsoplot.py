@@ -351,7 +351,7 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
 
     _setup_grid_and_axes('Density of preys', 'Death rate of predators')
 
-    # Plot the birth rate data first so the fit line appears above the points
+    # Plot the death rate data first so the fit line appears above the points
     plot(prey_data, pred_dp, antialiased=True, label=death_rate_label,
          color=death_rate_color, linestyle=death_rate_style,
          marker=death_rate_marker)
@@ -363,6 +363,19 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
     legend()
 
     show()
+
+
+def get_reg_for_prey_death(pred_data, prey_dp):
+    n = len(pred_data)
+
+    # polynomial regression
+    cr = polyfit(pred_data, prey_dp, 1)
+    reg = polyval(cr, pred_data)
+
+    # compute the mean square error
+    err = sqrt(sum((reg - prey_dp) ** 2) / n)
+
+    return cr, err
 
 
 def plot_reg_for_prey_death(pred_data, prey_dp,
@@ -378,16 +391,11 @@ def plot_reg_for_prey_death(pred_data, prey_dp,
                             fit_marker='',
                             predation_rate_marker='.',
                             mf_marker=''):
-    n = len(pred_data)
+    params, err = get_reg_for_prey_death(pred_data, prey_dp)
 
-    # polynomial regression
-    cr = polyfit(pred_data, prey_dp, 1)
-    reg = polyval(cr, pred_data)
+    reg = polyval(params, pred_data)
 
-    # compute the mean square error
-    err = sqrt(sum((reg - prey_dp) ** 2) / n)
-
-    print('Parameters: c = {0}'.format(cr))
+    print('Parameters: c = {0}, d = {1}'.format(params[0], params[1]))
     print('Mean square error = {0}'.format(err))
 
     figure(1, (9, 8))
@@ -396,12 +404,12 @@ def plot_reg_for_prey_death(pred_data, prey_dp,
 
     _setup_grid_and_axes('Density of predators', 'Predation rate')
 
-    # plots
-    plot(pred_data, reg, antialiased=True, label=fit_label, color=fit_color,
-         linestyle=fit_style, marker=fit_marker)
+    # Plot the death rate data first so the fit line appears above the points
     plot(pred_data, prey_dp, antialiased=True, label=predation_rate_label,
          color=predation_rate_color, linestyle=predation_rate_style,
          marker=predation_rate_marker)
+    plot(pred_data, reg, antialiased=True, label=fit_label, color=fit_color,
+         linestyle=fit_style, marker=fit_marker)
     plot(pred_data, pred_data, antialiased=True, label=mf_label,
          color=mf_color, linestyle=mf_style, marker=mf_marker)
 
