@@ -313,7 +313,7 @@ def get_reg_for_predator_death(prey_data, pred_dp):
 
 def plot_reg_for_predator_death(prey_data, pred_dp,
                                 fit_label='Fitted curve',
-                                death_rate_label='Death rate data',
+                                death_rate_label='Simulation data',
                                 mf_label='Mean field term',
                                 fit_color='b',
                                 death_rate_color='g',
@@ -335,7 +335,7 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
 
     _set_font()
 
-    _setup_grid_and_axes('Density of preys', 'Death rate of predators')
+    _setup_grid_and_axes('Density of preys', 'Death probability of predators')
 
     # Plot the death rate data first so the fit line appears above the points
     plot(prey_data, pred_dp, antialiased=True, label=death_rate_label,
@@ -364,7 +364,7 @@ def get_reg_for_prey_death(pred_data, prey_dp):
 
 def plot_reg_for_prey_death(pred_data, prey_dp,
                             fit_label='Fitted curve',
-                            predation_rate_label='Death rate data',
+                            predation_rate_label='Simulation data',
                             mf_label='Mean field term',
                             fit_color='b',
                             predation_rate_color='g',
@@ -386,7 +386,7 @@ def plot_reg_for_prey_death(pred_data, prey_dp,
 
     _set_font()
 
-    _setup_grid_and_axes('Density of predators', 'Predation rate')
+    _setup_grid_and_axes('Density of predators', 'Predation probability')
 
     # Plot the death rate data first so the fit line appears above the points
     plot(pred_data, prey_dp, antialiased=True, label=predation_rate_label,
