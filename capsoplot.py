@@ -93,7 +93,7 @@ def plot_time_series(file_name, width=512, height=256, tmin=-1, tmax=-1,
     """
     size = width * height
 
-    figure(1, (9, 8))
+    figure(1, (10, 6))
 
     _set_font()
 
@@ -773,7 +773,7 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
         psi[t] = psi_dy + (1 - psi_dy) * (1 - (1 - py) ** number_of_events)
 
     # Setup the plot
-    figure(1, (9, 8))
+    figure(1, (10, 6))
 
     _set_font()
 
