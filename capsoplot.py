@@ -61,12 +61,12 @@ def get_average_column(path, column=0):
     return sum_col / len(files)
 
 
-def plot_time_series(file_name, width=512, height=256, tmin=-1,
-                     tmax=-1, prey_label='Preys',
-                     pred_label='Predators', prey_color='g',
-                     pred_color='r', prey_style='-',
-                     pred_style='-', prey_marker='',
-                     pred_marker=''):
+def plot_time_series(file_name, width=512, height=256, tmin=-1, tmax=-1,
+                     prey_label='Preys', pred_label='Predators',
+                     prey_color='g', pred_color='r',
+                     prey_linewidth=1.0, pred_linewidth=1.0,
+                     prey_style='-', pred_style='-',
+                     prey_marker='', pred_marker=''):
     """
     Plot the time series (normalized) of a CaPso results file.
 
@@ -82,6 +82,8 @@ def plot_time_series(file_name, width=512, height=256, tmin=-1,
         pred_label (str): the label for the predators' data.
         prey_color (str): the color string for the preys' data.
         pred_color (str): the color string for the predators' data.
+        prey_linewidth (float): the linewidth for the preys.
+        pred_linewidth (float): the linewidth for the predators.
         prey_style (str): the string specifying the line style for the preys.
         pred_style (str): the string specifying the line style for the
             predators.
@@ -104,14 +106,18 @@ def plot_time_series(file_name, width=512, height=256, tmin=-1,
     # plot the prey's data
     if tmin != -1 and tmax != -1:
         plot(index[tmin:tmax], preys[tmin:tmax] / size, label=prey_label,
-             color=prey_color, linestyle=prey_style, marker=prey_marker)
+             color=prey_color, linewidth=prey_linewidth, linestyle=prey_style,
+             marker=prey_marker)
         plot(index[tmin:tmax], predators[tmin:tmax] / size, label=pred_label,
-             color=pred_color, linestyle=pred_style, marker=pred_marker)
+             color=pred_color, linewidth=pred_linewidth, linestyle=pred_style,
+             marker=pred_marker)
     else:
         plot(index, preys / size, label=prey_label, color=prey_color,
-             linestyle=prey_style, marker=prey_marker)
+             linestyle=prey_style, linewidth=prey_linewidth,
+             marker=prey_marker)
         plot(index, predators / size, label=pred_label, color=pred_color,
-             linestyle=pred_style, marker=pred_marker)
+             linestyle=pred_style, linewidth=pred_linewidth,
+             marker=pred_marker)
 
     legend()
 
