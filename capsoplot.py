@@ -705,10 +705,12 @@ def plot_mf(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1, rz=1,
 
 
 def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
-                    rz=1, a=-1, b=1, c=1, d=0, prey_label='Mf preys',
-                    pred_label='Mf predators', prey_color='g', pred_color='r',
-                    prey_style='-', pred_style='-', prey_marker='',
-                    pred_marker=''):
+                    rz=1, a=-1, b=1, c=1, d=0,
+                    prey_label='Mf preys', pred_label='Mf predators',
+                    prey_color='g', pred_color='r',
+                    prey_linewidth=1.0, pred_linewidth=1.0,
+                    prey_style='-', pred_style='-',
+                    prey_marker='', pred_marker=''):
     """
     Plot the mean field model approximation, coupled version.
 
@@ -728,6 +730,8 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
         pred_label (str): the label for the predators' data.
         prey_color (str): the color string for the preys' data.
         pred_color (str): the color string for the predators' data.
+        prey_linewidth (float): the linewidth for the preys.
+        pred_linewidth (float): the linewidth for the predators.
         prey_style (str): the string specifying the line style for the preys.
         pred_style (str): the string specifying the line style for the
             predators.
@@ -776,9 +780,9 @@ def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
     _setup_grid_and_axes('t (seasons)', 'Population density')
 
     plot(index_set, psi, antialiased=True, label=prey_label, color=prey_color,
-         linestyle=prey_style, marker=prey_marker)
+         linewidth=prey_linewidth, linestyle=prey_style, marker=prey_marker)
     plot(index_set, phi, antialiased=True, label=pred_label, color=pred_color,
-         linestyle=pred_style, marker=pred_marker)
+         linewidth=pred_linewidth, linestyle=pred_style, marker=pred_marker)
 
     legend()
 
