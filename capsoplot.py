@@ -627,7 +627,7 @@ def plot_mf_minimal_coupled(N=100, psi0=1, phi0=0.01, ez=1, rz=1,
         psi[t] = psi[t - 1] - phi[t]
 
     # Setup the plot
-    figure(1)
+    figure(1, (10, 6))
 
     _set_font()
 
