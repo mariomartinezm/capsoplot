@@ -258,9 +258,9 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
     solution, output_flag, output_msg = \
         get_leastsq_for_reproduction(pop, birth_rate, e, r)
 
-    print 'Solution found: {0}'.format(solution)
-    print 'Output flag: {0}'.format(output_flag)
-    print 'Output msg: {0}'.format(output_msg)
+    print('Solution found: {0}'.format(solution))
+    print('Output flag: {0}'.format(output_flag))
+    print('Output msg: {0}'.format(output_msg))
 
     figure(1, (9, 8))
 
@@ -438,8 +438,8 @@ def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
 
     # Print raw data
     if data_file != '':
-        print preys
-    print Y
+        print(preys)
+    print(Y)
 
     # Setup the plot
     figure(1, (9.0, 7.0))
