@@ -3,11 +3,12 @@
     Ca-Pso model.
 """
 
+import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 # from os import listdir
 # from os.path import isfile, join
-# from scipy import loadtxt, arange, mean, fft, zeros, polyfit, polyval, sqrt
+# from scipy import fft, polyfit, polyval, sqrt
 # from scipy.fftpack import fftshift
 # from scipy.optimize import leastsq
 
@@ -119,39 +120,37 @@ def plot_time_series(file_name, width=512, height=512, tmin=-1, tmax=-1,
     plt.legend(loc='best')
 
 
-# def plot_fourier_spectra(file_name):
-    # """
-    # Plot the the Fourier spectra of a CaPso results file.
+def plot_fourier_spectra(file_name):
+    """
+    Plots the the Fourier spectra of a CaPso results file.
 
-    # Args:
-        # file_name (str): the text file containing the results.
+    Args:
+        file_name (str): the text file containing the results.
 
-    # """
-    # # load data file
-    # index, preys = loadtxt(file_name, usecols=(0, 1), unpack=True)
+    """
+    # load data file
+    df = pd.read_csv(file_name, index_col='Season')
 
     # N = preys.size
+    N = len(df.index)
 
-    # f = arange(-N / 2, N / 2) / N
+    f = np.arange(-N / 2, N / 2) / N
 
-    # zero_mean_data = preys - mean(preys)
+    zero_mean_data = df['Preys'] - df['Preys'].mean()
+    transform = np.fft.fft(zero_mean_data)
+    transform_scaled = transform / N
 
-    # transform = fft(zero_mean_data)
+    F = abs(np.fft.fftshift(transform_scaled))
 
-    # transform_scaled = transform / N
+    plt.figure(1, (9, 8))
 
-    # F = abs(fftshift(transform_scaled))
+    _set_font()
+    _setup_grid_and_axes(r'$\omega / 2 \pi$', '')
 
-    # figure(1, (9, 8))
-
-    # _set_font()
-
-    # _setup_grid_and_axes(r'$\omega / 2 \pi$', '')
-
-    # # plot using a solid line
-    # plot(f, F, 'k-', antialiased=True, linewidth=1.0)
-    # x_axis = gca()
-    # x_axis.set_xlim([0, f.max()])
+    # plot using a solid line
+    plt.plot(f, F, 'k-', antialiased=True, linewidth=1.0)
+    x_axis = plt.gca()
+    x_axis.set_xlim([0, f.max()])
 
 
 # def plot_phase_plot(file_name, width=512, height=256, tmin=-1, tmax=-1,
