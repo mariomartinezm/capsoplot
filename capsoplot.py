@@ -67,7 +67,7 @@ def plot_time_series(file_name, width=512, height=512, tmin=-1, tmax=-1,
                      prey_style='-', pred_style='-',
                      prey_marker='', pred_marker=''):
     """
-    Plot the time series (normalized) of a CaPso results file.
+    Plots the time series (normalized) of a CaPso results file.
 
     Args:
         file_name (str): the text file containing the data to plot.
