@@ -1,4 +1,5 @@
-/data_sets
+/data_sets/
+/venv/
 *.pyc
 *.txt
 *.swp
