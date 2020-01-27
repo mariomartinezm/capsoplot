@@ -243,7 +243,7 @@ def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
                                   fit_color='b',
                                   birth_rate_color='g',
                                   fit_style='-',
-                                  birth_rate_style='.',
+                                  birth_rate_style='',
                                   fit_marker='',
                                   birth_rate_marker='.'):
 
