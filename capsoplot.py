@@ -700,87 +700,88 @@ def plot_reg_for_prey_death(pred_data, prey_dp,
     # legend()
 
 
-# def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
-                    # rz=1, a=-1, b=1, c=1, d=0,
-                    # prey_label='Mf preys', pred_label='Mf predators',
-                    # prey_color='g', pred_color='r',
-                    # prey_linewidth=1.0, pred_linewidth=1.0,
-                    # prey_style='-', pred_style='-',
-                    # prey_marker='', pred_marker=''):
-    # """
-    # Plot the mean field model approximation, coupled version.
+def plot_mf_coupled(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1, ez=1,
+                    rz=1, a=-1, b=1, c=1, d=0,
+                    prey_label='Mf preys', pred_label='Mf predators',
+                    prey_color='g', pred_color='r',
+                    prey_linewidth=1.0, pred_linewidth=1.0,
+                    prey_style='-', pred_style='-',
+                    prey_marker='', pred_marker=''):
+    """
+    Plot the mean field model approximation, coupled version.
 
-    # Kwargs:
-        # N (int): the number of iterations to calculate.
-        # psi0 (float): the initial density of preys.
-        # phi0 (float): the initial density of predators.
-        # alpha (float) the intraspecific competition coefficient.
-        # ey (float): the reproductive capacity of preys.
-        # ry (int): the radius of the preys' reproduction neighborhood.
-        # ez (float): the reproductive capacity of predators.
-        # rz (int): the radius of the predators' reproduction neighborhood.
-        # a (float): the ordinate of the line that defines predator mortality.
-        # b (float): the slope of the line that defines predator mortality.
-        # c (float): the slope of the line that defines prey mortality.
-        # prey_label (str): the label for the preys' data.
-        # pred_label (str): the label for the predators' data.
-        # prey_color (str): the color string for the preys' data.
-        # pred_color (str): the color string for the predators' data.
-        # prey_linewidth (float): the linewidth for the preys.
-        # pred_linewidth (float): the linewidth for the predators.
-        # prey_style (str): the string specifying the line style for the preys.
-        # pred_style (str): the string specifying the line style for the
-            # predators.
-        # prey_marker (str): the marker for the preys' data.
-        # pred_marker (str): the marker for the predators' data.
+    Kwargs:
+        N (int): the number of iterations to calculate.
+        psi0 (float): the initial density of preys.
+        phi0 (float): the initial density of predators.
+        alpha (float) the intraspecific competition coefficient.
+        ey (float): the reproductive capacity of preys.
+        ry (int): the radius of the preys' reproduction neighborhood.
+        ez (float): the reproductive capacity of predators.
+        rz (int): the radius of the predators' reproduction neighborhood.
+        a (float): the ordinate of the line that defines predator mortality.
+        b (float): the slope of the line that defines predator mortality.
+        c (float): the slope of the line that defines prey mortality.
+        prey_label (str): the label for the preys' data.
+        pred_label (str): the label for the predators' data.
+        prey_color (str): the color string for the preys' data.
+        pred_color (str): the color string for the predators' data.
+        prey_linewidth (float): the linewidth for the preys.
+        pred_linewidth (float): the linewidth for the predators.
+        prey_style (str): the string specifying the line style for the preys.
+        pred_style (str): the string specifying the line style for the
+            predators.
+        prey_marker (str): the marker for the preys' data.
+        pred_marker (str): the marker for the predators' data.
 
-    # """
-    # # Initialize data arrays
-    # index_set = arange(0, N + 1)
-    # psi = zeros(len(index_set))
-    # phi = zeros(len(index_set))
+    """
+    # Initialize data arrays
+    index_set = np.arange(0, N + 1)
+    psi = np.zeros(len(index_set))
+    phi = np.zeros(len(index_set))
 
-    # # Initialize densities
-    # psi[0] = psi0
-    # phi[0] = phi0
+    # Initialize densities
+    psi[0] = psi0
+    phi[0] = phi0
 
-    # card_mry = (2 * ry + 1) ** 2 - 1
-    # py = 1 / card_mry
+    card_mry = (2 * ry + 1) ** 2 - 1
+    py = 1 / card_mry
 
-    # card_mrz = (2 * rz + 1) ** 2 - 1
-    # pz = 1 / card_mrz
+    card_mrz = (2 * rz + 1) ** 2 - 1
+    pz = 1 / card_mrz
 
-    # # Calculate densities
-    # for t in index_set[1:]:
-        # # Intraspecific competition
-        # psi_ic = psi[t - 1] - alpha * psi[t - 1] ** 2
-        # # Reproduction of predators
-        # number_of_predators = card_mrz * phi[t - 1]
-        # number_of_events_predators = ez * number_of_predators
-        # phi_rz = phi[t - 1] + \
-            # (1 - phi[t - 1]) * (1 - (1 - pz) ** number_of_events_predators)
-        # # Death of predators
-        # phi[t] = phi_rz - (b + a * psi_ic) * phi_rz
-        # # Death of preys
-        # psi_dy = psi_ic - (d + c * phi[t]) * psi_ic
-        # # Reprodution of preys
-        # number_of_preys = card_mry * psi_dy
-        # number_of_events = ey * number_of_preys
-        # psi[t] = psi_dy + (1 - psi_dy) * (1 - (1 - py) ** number_of_events)
+    # Calculate densities
+    for t in index_set[1:]:
+        # Intraspecific competition
+        psi_ic = psi[t - 1] - alpha * psi[t - 1] ** 2
+        # Reproduction of predators
+        number_of_predators = card_mrz * phi[t - 1]
+        number_of_events_predators = ez * number_of_predators
+        phi_rz = phi[t - 1] + \
+            (1 - phi[t - 1]) * (1 - (1 - pz) ** number_of_events_predators)
+        # Death of predators
+        phi[t] = phi_rz - (b + a * psi_ic) * phi_rz
+        # Death of preys
+        psi_dy = psi_ic - (d + c * phi[t]) * psi_ic
+        # Reprodution of preys
+        number_of_preys = card_mry * psi_dy
+        number_of_events = ey * number_of_preys
+        psi[t] = psi_dy + (1 - psi_dy) * (1 - (1 - py) ** number_of_events)
 
-    # # Setup the plot
-    # figure(1, (10, 6))
+    # Setup the plot
+    plt.figure(1, (10, 6))
 
-    # _set_font()
+    _set_font()
+    _setup_grid_and_axes('t (seasons)', 'Population density')
 
-    # _setup_grid_and_axes('t (seasons)', 'Population density')
+    plt.plot(index_set, psi, antialiased=True, label=prey_label,
+             color=prey_color, linewidth=prey_linewidth, linestyle=prey_style,
+             marker=prey_marker)
+    plt.plot(index_set, phi, antialiased=True, label=pred_label,
+             color=pred_color, linewidth=pred_linewidth, linestyle=pred_style,
+             marker=pred_marker)
 
-    # plot(index_set, psi, antialiased=True, label=prey_label, color=prey_color,
-         # linewidth=prey_linewidth, linestyle=prey_style, marker=prey_marker)
-    # plot(index_set, phi, antialiased=True, label=pred_label, color=pred_color,
-         # linewidth=pred_linewidth, linestyle=pred_style, marker=pred_marker)
-
-    # legend()
+    plt.legend()
 
 
 # def plot_mf_coupled_phase(N=100, psi0=1, phi0=0.01, alpha=0.1, ey=1, ry=1,
