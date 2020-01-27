@@ -175,7 +175,7 @@ def plot_phase_plot(file_name, width=512, height=512, tmin=-1, tmax=-1,
     size = width * height
 
     # Load data file
-    df = pd.read_csv(file_name)
+    df = pd.read_csv(file_name, index_col='Season')
 
     plt.figure(1, (9.0, 8))
 
