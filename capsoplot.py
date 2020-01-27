@@ -153,49 +153,45 @@ def plot_fourier_spectra(file_name):
     x_axis.set_xlim([0, f.max()])
 
 
-# def plot_phase_plot(file_name, width=512, height=256, tmin=-1, tmax=-1,
-                    # label='Sim', color='k', style='-', marker=''):
-    # """
-    # Plot the the phase plot of a CaPso results file.
+def plot_phase_plot(file_name, width=512, height=512, tmin=-1, tmax=-1,
+                    label='Sim', color='k', style='-', marker=''):
+    """
+    Plots the the phase plot of a CaPso results file.
 
-    # Args:
-        # file_name (str): the text file containing the results.
+    Args:
+        file_name (str): the text file containing the results.
 
-    # Kwargs:
-        # width (int): the width of the lattice used in the simulation.
-        # height (int): the height of the lattice used in the simulation.
-        # tmin (int): the minimal endpoint of the time interval to plot.
-        # tmax (int): the maximum endpoint of the time interval to plot.
-        # label (string): the label for the data.
-        # color (string): the string specifying the line color.
-        # style (string): the string specifying the line style.
-        # marker (string): the string specifying the marker for the data points.
+    Kwargs:
+        width (int): the width of the lattice used in the simulation.
+        height (int): the height of the lattice used in the simulation.
+        tmin (int): the minimal endpoint of the time interval to plot.
+        tmax (int): the maximum endpoint of the time interval to plot.
+        label (string): the label for the data.
+        color (string): the string specifying the line color.
+        style (string): the string specifying the line style.
+        marker (string): the string specifying the marker for the data points.
 
-    # """
-    # size = width * height
+    """
+    size = width * height
 
-    # # Load data file
-    # index, preys, predators = loadtxt(file_name, usecols=(0, 1, 2),
-                                      # unpack=True)
+    # Load data file
+    df = pd.read_csv(file_name)
 
-    # figure(1, (9.0, 8))
+    plt.figure(1, (9.0, 8))
 
-    # grid(True)
+    _set_font()
+    _setup_grid_and_axes('Preys', 'Predators')
 
-    # _set_font()
+    # Plot the data
+    if tmin != -1 and tmax != -1:
+        plt.plot(df['Preys'][tmin:tmax] / size, df['Predators'][tmin:tmax] /
+                 size, label=label, color=color, linestyle=style,
+                 marker=marker, antialiased=True)
+    else:
+        plt.plot(df['Preys'] / size, df['Predators'] / size, label=label,
+                 color=color, linestyle=style, marker=marker, antialiased=True)
 
-    # _setup_grid_and_axes('Preys', 'Predators')
-
-    # # Plot the data
-    # if tmin != -1 and tmax != -1:
-        # plot(preys[tmin:tmax] / size, predators[tmin:tmax] / size,
-             # label=label, color=color, linestyle=style, marker=marker,
-             # antialiased=True)
-    # else:
-        # plot(preys / size, predators / size, label=label, color=color,
-             # linestyle=style, marker=marker, antialiased=True)
-
-    # legend()
+    plt.legend(loc='best')
 
 
 # def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
