@@ -194,45 +194,45 @@ def plot_phase_plot(file_name, width=512, height=512, tmin=-1, tmax=-1,
     plt.legend(loc='best')
 
 
-# def plot_birth_rate(file_name, use_prey_data=True, width=512, height=256,
-                    # label='Prey birth rate', color='k', style='.', marker='.'):
-    # """
-    # Plot the birth rate using a CaPso results file.
+def plot_birth_rate(file_name, use_prey_data=True, width=512, height=512,
+                    label='Prey birth rate', color='k', style='-', marker='.'):
+    """
+    Plots the birth rate using a CaPso results file.
 
-    # Args:
-        # file_name (str): the text file containing the results.
+    Args:
+        file_name (str): the text file containing the results.
 
-    # Kwargs:
-        # use_prey_data (bool): if true, the birth rate of preys is plotted,
-        # otherwise, the birth rate of predators is plotted.
-        # width (int): the width of the lattice used in the simulation.
-        # height (int): the height of the lattice used in the simulation.
-        # label (string): the label for the data.
-        # color (string): the string specifying the line color.
-        # style (string): the string specifying the line style.
-        # marker (string): the string specifying the marker for the data points.
+    Kwargs:
+        use_prey_data (bool): if true, the birth rate of preys is plotted,
+        otherwise, the birth rate of predators is plotted.
+        width (int): the width of the lattice used in the simulation.
+        height (int): the height of the lattice used in the simulation.
+        label (string): the label for the data.
+        color (string): the string specifying the line color.
+        style (string): the string specifying the line style.
+        marker (string): the string specifying the marker for the data points.
 
-    # """
-    # if use_prey_data is True:
-        # pop_size, birth_rate = loadtxt(file_name, usecols=(3, 4), unpack=True)
-    # else:
-        # pop_size, birth_rate = loadtxt(file_name, usecols=(5, 6), unpack=True)
+    """
+    df = pd.read_csv(file_name, index_col='Season')
 
-    # size = width * height
+    size = width * height
 
-    # figure(1, (9.0, 7))
+    plt.figure(1, (9.0, 7))
 
-    # grid(True)
+    _set_font()
+    _setup_grid_and_axes('Population density', 'Birth rate')
 
-    # _set_font()
+    # Plot the data
+    if use_prey_data is True:
+        plt.plot(df['PreyCountBeforeReproduction'] / size, df['PreyBirthRate'],
+                 label=label, color=color, linestyle=style, marker=marker,
+                 antialiased=True)
+    else:
+        plt.plot(df['PredatorCountBeforeReproduction'] / size,
+                 df['PredatorBirthRate'], label=label, color=color,
+                 linestyle=style, marker=marker, antialiased=True)
 
-    # _setup_grid_and_axes('Population density', 'Birth rate')
-
-    # # Plot the data
-    # plot(pop_size / size, birth_rate, label=label, color=color,
-         # linestyle=style, marker=marker, antialiased=True)
-
-    # legend()
+    plt.legend(loc='best')
 
 
 # def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
