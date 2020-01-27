@@ -9,7 +9,6 @@ import pandas as pd
 # from os import listdir
 # from os.path import isfile, join
 from scipy import polyfit, polyval
-# from scipy.fftpack import fftshift
 from scipy.optimize import leastsq
 
 AXIS_LABEL_SIZE = 25
@@ -345,55 +344,54 @@ def plot_reg_for_predator_death(prey_data, pred_dp,
     plt.legend(loc='best')
 
 
-# def get_reg_for_prey_death(pred_data, prey_dp):
-    # n = len(pred_data)
+def get_reg_for_prey_death(pred_data, prey_dp):
+    n = len(pred_data)
 
-    # # polynomial regression
-    # cr = polyfit(pred_data, prey_dp, 1)
-    # reg = polyval(cr, pred_data)
+    # polynomial regression
+    cr = polyfit(pred_data, prey_dp, 1)
+    reg = polyval(cr, pred_data)
 
-    # # compute the mean square error
-    # err = sqrt(sum((reg - prey_dp) ** 2) / n)
+    # compute the mean square error
+    err = np.sqrt(sum((reg - prey_dp) ** 2) / n)
 
-    # return cr, err
+    return cr, err
 
 
-# def plot_reg_for_prey_death(pred_data, prey_dp,
-                            # fit_label='Fitted curve',
-                            # predation_rate_label='Simulation data',
-                            # mf_label='Mean field term',
-                            # fit_color='b',
-                            # predation_rate_color='g',
-                            # mf_color='r',
-                            # fit_style='-',
-                            # predation_rate_style='.',
-                            # mf_style='-',
-                            # fit_marker='',
-                            # predation_rate_marker='.',
-                            # mf_marker=''):
-    # params, err = get_reg_for_prey_death(pred_data, prey_dp)
+def plot_reg_for_prey_death(pred_data, prey_dp,
+                            fit_label='Fitted curve',
+                            predation_rate_label='Simulation data',
+                            mf_label='Mean field term',
+                            fit_color='b',
+                            predation_rate_color='g',
+                            mf_color='r',
+                            fit_style='-',
+                            predation_rate_style='',
+                            mf_style='-',
+                            fit_marker='',
+                            predation_rate_marker='.',
+                            mf_marker=''):
+    params, err = get_reg_for_prey_death(pred_data, prey_dp)
 
-    # reg = polyval(params, pred_data)
+    reg = polyval(params, pred_data)
 
-    # print('Parameters: c = {0}, d = {1}'.format(params[0], params[1]))
-    # print('Mean square error = {0}'.format(err))
+    print('Parameters: c = {0}, d = {1}'.format(params[0], params[1]))
+    print('Mean square error = {0}'.format(err))
 
-    # figure(1, (9, 8))
+    plt.figure(1, (9, 8))
 
-    # _set_font()
+    _set_font()
+    _setup_grid_and_axes('Density of predators', 'Predation probability')
 
-    # _setup_grid_and_axes('Density of predators', 'Predation probability')
+    # Plot the death rate data first so the fit line appears above the points
+    plt.plot(pred_data, prey_dp, antialiased=True, label=predation_rate_label,
+             color=predation_rate_color, linestyle=predation_rate_style,
+             marker=predation_rate_marker)
+    plt.plot(pred_data, reg, antialiased=True, label=fit_label,
+             color=fit_color, linestyle=fit_style, marker=fit_marker)
+    plt.plot(pred_data, pred_data, antialiased=True, label=mf_label,
+             color=mf_color, linestyle=mf_style, marker=mf_marker)
 
-    # # Plot the death rate data first so the fit line appears above the points
-    # plot(pred_data, prey_dp, antialiased=True, label=predation_rate_label,
-         # color=predation_rate_color, linestyle=predation_rate_style,
-         # marker=predation_rate_marker)
-    # plot(pred_data, reg, antialiased=True, label=fit_label, color=fit_color,
-         # linestyle=fit_style, marker=fit_marker)
-    # plot(pred_data, pred_data, antialiased=True, label=mf_label,
-         # color=mf_color, linestyle=mf_style, marker=mf_marker)
-
-    # legend()
+    plt.legend(loc='best')
 
 
 # def plot_mf_intraspecific(N=100, y0=1, alpha=0.5, z=0, data_file=''):
