@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 # from os import listdir
 # from os.path import isfile, join
-# from scipy import fft, polyfit, polyval, sqrt
+from scipy import polyfit, polyval
 # from scipy.fftpack import fftshift
 from scipy.optimize import leastsq
 
@@ -295,55 +295,54 @@ def _peval(x, params):
     return (1 - x) * (1 - (1 - p) ** (card * e * x))
 
 
-# def get_reg_for_predator_death(prey_data, pred_dp):
-    # n = len(prey_data)
+def get_reg_for_predator_death(prey_data, pred_dp):
+    n = len(prey_data)
 
-    # # polynomial regression
-    # (ar, br) = polyfit(prey_data, pred_dp, 1)
-    # reg = polyval([ar, br], prey_data)
+    # polynomial regression
+    (ar, br) = polyfit(prey_data, pred_dp, 1)
+    reg = polyval([ar, br], prey_data)
 
-    # # compute the mean square error
-    # err = sqrt(sum((reg - pred_dp) ** 2) / n)
+    # compute the mean square error
+    err = np.sqrt(sum((reg - pred_dp) ** 2) / n)
 
-    # return ar, br, err
+    return ar, br, err
 
 
-# def plot_reg_for_predator_death(prey_data, pred_dp,
-                                # fit_label='Fitted curve',
-                                # death_rate_label='Simulation data',
-                                # mf_label='Mean field term',
-                                # fit_color='b',
-                                # death_rate_color='g',
-                                # mf_color='r',
-                                # fit_style='-',
-                                # death_rate_style='.',
-                                # mf_style='-',
-                                # fit_marker='',
-                                # death_rate_marker='.',
-                                # mf_marker=''):
-    # ar, br, err = get_reg_for_predator_death(prey_data, pred_dp)
+def plot_reg_for_predator_death(prey_data, pred_dp,
+                                fit_label='Fitted curve',
+                                death_rate_label='Simulation data',
+                                mf_label='Mean field term',
+                                fit_color='b',
+                                death_rate_color='g',
+                                mf_color='r',
+                                fit_style='-',
+                                death_rate_style='',
+                                mf_style='-',
+                                fit_marker='',
+                                death_rate_marker='.',
+                                mf_marker=''):
+    ar, br, err = get_reg_for_predator_death(prey_data, pred_dp)
 
-    # reg = polyval([ar, br], prey_data)
+    reg = polyval([ar, br], prey_data)
 
-    # print('Parameters: a = {0}, b = {1}'.format(ar, br))
-    # print('Mean square error = {0}'.format(err))
+    print('Parameters: a = {0}, b = {1}'.format(ar, br))
+    print('Mean square error = {0}'.format(err))
 
-    # figure(1, (9, 8))
+    plt.figure(1, (9, 8))
 
-    # _set_font()
+    _set_font()
+    _setup_grid_and_axes('Density of preys', 'Death probability of predators')
 
-    # _setup_grid_and_axes('Density of preys', 'Death probability of predators')
+    # Plot the death rate data first so the fit line appears above the points
+    plt.plot(prey_data, pred_dp, antialiased=True, label=death_rate_label,
+             color=death_rate_color, linestyle=death_rate_style,
+             marker=death_rate_marker)
+    plt.plot(prey_data, reg, antialiased=True, label=fit_label,
+             color=fit_color, linestyle=fit_style, marker=fit_marker)
+    plt.plot(prey_data, 1 - prey_data, antialiased=True, label=mf_label,
+             color=mf_color, linestyle=mf_style, marker=mf_marker)
 
-    # # Plot the death rate data first so the fit line appears above the points
-    # plot(prey_data, pred_dp, antialiased=True, label=death_rate_label,
-         # color=death_rate_color, linestyle=death_rate_style,
-         # marker=death_rate_marker)
-    # plot(prey_data, reg, antialiased=True, label=fit_label, color=fit_color,
-         # linestyle=fit_style, marker=fit_marker)
-    # plot(prey_data, 1 - prey_data, antialiased=True, label=mf_label,
-         # color=mf_color, linestyle=mf_style, marker=mf_marker)
-
-    # legend()
+    plt.legend(loc='best')
 
 
 # def get_reg_for_prey_death(pred_data, prey_dp):
