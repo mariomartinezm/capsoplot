@@ -10,7 +10,7 @@ import pandas as pd
 # from os.path import isfile, join
 # from scipy import fft, polyfit, polyval, sqrt
 # from scipy.fftpack import fftshift
-# from scipy.optimize import leastsq
+from scipy.optimize import leastsq
 
 AXIS_LABEL_SIZE = 25
 TICKS_LABEL_SIZE = 20
@@ -235,65 +235,64 @@ def plot_birth_rate(file_name, use_prey_data=True, width=512, height=512,
     plt.legend(loc='best')
 
 
-# def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
-                                  # x_label='Density',
-                                  # y_label='Growth rate',
-                                  # fit_label='Fitted curve',
-                                  # birth_rate_label='Birth rate data',
-                                  # fit_color='b',
-                                  # birth_rate_color='g',
-                                  # fit_style='-',
-                                  # birth_rate_style='.',
-                                  # fit_marker='',
-                                  # birth_rate_marker='.'):
+def plot_leastsq_for_reproduction(pop, birth_rate, e, r,
+                                  x_label='Density',
+                                  y_label='Growth rate',
+                                  fit_label='Fitted curve',
+                                  birth_rate_label='Birth rate data',
+                                  fit_color='b',
+                                  birth_rate_color='g',
+                                  fit_style='-',
+                                  birth_rate_style='.',
+                                  fit_marker='',
+                                  birth_rate_marker='.'):
 
-    # solution, output_flag, output_msg = \
-        # get_leastsq_for_reproduction(pop, birth_rate, e, r)
+    solution, output_flag, output_msg = \
+        get_leastsq_for_reproduction(pop, birth_rate, e, r)
 
-    # print('Solution found: {0}'.format(solution))
-    # print('Output flag: {0}'.format(output_flag))
-    # print('Output msg: {0}'.format(output_msg))
+    print('Solution found: {0}'.format(solution))
+    print('Output flag: {0}'.format(output_flag))
+    print('Output msg: {0}'.format(output_msg))
 
-    # figure(1, (9, 8))
+    plt.figure(1, (9, 8))
 
-    # _set_font()
+    _set_font()
+    _setup_grid_and_axes(x_label, y_label)
 
-    # _setup_grid_and_axes(x_label, y_label)
+    # Plot the birth rate data first so the fit line appears above the points
+    plt.plot(pop, birth_rate, antialiased=True, label=birth_rate_label,
+             color=birth_rate_color, linestyle=birth_rate_style,
+             marker=birth_rate_marker)
+    plt.plot(pop, _peval(pop, solution), antialiased=True, label=fit_label,
+             color=fit_color, linestyle=fit_style, marker=fit_marker)
 
-    # # Plot the birth rate data first so the fit line appears above the points
-    # plot(pop, birth_rate, antialiased=True, label=birth_rate_label,
-         # color=birth_rate_color, linestyle=birth_rate_style,
-         # marker=birth_rate_marker)
-    # plot(pop, _peval(pop, solution), antialiased=True, label=fit_label,
-         # color=fit_color, linestyle=fit_style, marker=fit_marker)
-
-    # legend()
-
-
-# def get_leastsq_for_reproduction(pop, birth_rate, e, r):
-    # p0 = [e, r]
-
-    # plsq = leastsq(_residuals, p0, args=(birth_rate, pop), full_output=1)
-
-    # return plsq[0], plsq[4], plsq[3]
+    plt.legend(loc='best')
 
 
-# def _residuals(params, y, x):
-    # e, r = params
-    # card = (2 * r + 1) ** 2 - 1
-    # p = 1 / card
-    # err = y - (1 - x) * (1 - (1 - p) ** (card * e * x))
+def get_leastsq_for_reproduction(pop, birth_rate, e, r):
+    p0 = [e, r]
 
-    # return err
+    plsq = leastsq(_residuals, p0, args=(birth_rate, pop), full_output=1)
+
+    return plsq[0], plsq[4], plsq[3]
 
 
-# def _peval(x, params):
-    # e = params[0]
-    # r = params[1]
-    # card = (2 * r + 1) ** 2 - 1
-    # p = 1 / card
+def _residuals(params, y, x):
+    e, r = params
+    card = (2 * r + 1) ** 2 - 1
+    p = 1 / card
+    err = y - (1 - x) * (1 - (1 - p) ** (card * e * x))
 
-    # return (1 - x) * (1 - (1 - p) ** (card * e * x))
+    return err
+
+
+def _peval(x, params):
+    e = params[0]
+    r = params[1]
+    card = (2 * r + 1) ** 2 - 1
+    p = 1 / card
+
+    return (1 - x) * (1 - (1 - p) ** (card * e * x))
 
 
 # def get_reg_for_predator_death(prey_data, pred_dp):
