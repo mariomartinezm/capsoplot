@@ -4,10 +4,15 @@ import numpy as np
 def get_mean_field(num_iter=100, psi0=1, phi0=0.01, alpha=0.1,
                    ey=1, ry=1, ez=1, rz=1,
                    a=-1, b=1, d=1, e=0):
-    """
-    Gets the mean field model approximation of the CAPSO model.
+    """Gets the mean field model approximation of the CAPSO model.
 
-    Kwargs:
+    Calculates the densities of preys and predators, using the mean field
+    difference equations that describe the following interactions between
+    individuals of both populations: intraspecific competition, reproduction of
+    predators, death of predators, death of preys and reproduction of
+    predators.
+
+    Args:
         num_iter (int): the number of iterations to simulate.
         psi0 (float): the initial density of preys.
         phi0 (float): the initial density of predators.
@@ -20,6 +25,11 @@ def get_mean_field(num_iter=100, psi0=1, phi0=0.01, alpha=0.1,
         b (float): the intercept of the line that defines predator mortality.
         d (float): the coefficient of the line that defines prey mortality.
         e (float): the intercept of the line that defines prey mortality.
+
+    Returns:
+        A two dimensional numpy array, where the first column is a vector of
+        prey densities and the second column is a vector of predators
+        densities.
     """
     # Initialize data arrays
     index_set = np.arange(0, num_iter)
