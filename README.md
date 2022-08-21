@@ -10,7 +10,20 @@ $ pip install pycapso
 
 ## Usage
 
-- TODO
+`pycapso` contains functions used to analyze the behavior of the CAPSO model,
+e.g., mean field approximation. It also contains wrappers around matplotlib to
+make the plotting of data easier.
+
+```python
+import matplotlib.pyplot as plt
+from pycapso.models import get_mean_field
+
+prey_pred = get_mean_field(num_iter=1000)
+
+plt.plot(prey_pred)
+
+plt.show()
+```
 
 ## Contributing
 
