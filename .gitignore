@@ -1,5 +1,7 @@
 /data_sets/
 /venv/
+.ipynb_checkpoints/
+_build/
 *.pyc
 *.txt
 *.swp
