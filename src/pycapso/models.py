@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 def get_mean_field(num_iter=100, psi0=1, phi0=0.01, alpha=0.1,
@@ -27,9 +28,8 @@ def get_mean_field(num_iter=100, psi0=1, phi0=0.01, alpha=0.1,
         e (float): the intercept of the line that defines prey mortality.
 
     Returns:
-        A two dimensional numpy array, where the first column is a vector of
-        prey densities and the second column is a vector of predators
-        densities.
+        A Pandas.DataFrame, where the first column is a series of prey
+        densities and the second column is a series of predators densities.
     """
     # Initialize data arrays
     index_set = np.arange(0, num_iter)
@@ -67,4 +67,4 @@ def get_mean_field(num_iter=100, psi0=1, phi0=0.01, alpha=0.1,
         max_num_of_births = ey * num_preys
         psi[t] = psi_d + (1 - psi_d) * (1 - (1 - py) ** max_num_of_births)
 
-    return np.array([psi, phi], ndmin=2).T
+    return pd.DataFrame({'Preys': phi, 'Predators': psi})
