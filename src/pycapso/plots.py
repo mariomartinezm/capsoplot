@@ -1,4 +1,6 @@
+import numpy as np
 import matplotlib.pyplot as plt
+from scipy.fft import rfft, rfftfreq
 
 
 def plot_prey_pred_data(data,
@@ -35,3 +37,25 @@ def plot_prey_pred_data(data,
     plt.ylabel('Population density')
 
     plt.legend(loc='best')
+
+
+def plot_fourier_spectrum(ts, sampling_freq=1):
+    """ Plots the Fourier spectra of data in a Pandas series.
+
+    Args:
+        ts (Pandas.Series): The Pandas series that contains the data to be
+        processed.
+        sampling_freq (float): The sampling frequency of the data.
+    """
+
+    N = ts.size
+
+    # Since the fft() function expects a numpy array we use the values property
+    # of the series
+    zero_mean_data = (ts - ts.mean()).values
+
+    yf = rfft(zero_mean_data)
+    xf = rfftfreq(N, 1 / sampling_freq)
+
+    plt.plot(xf, np.abs(yf), 'k-', antialiased=True, linewidth=1.0)
+    plt.xlabel("Frequency")
